@@ -14,6 +14,10 @@ def cat_matrices2D(mat1, mat2, axis=0):
     Returns:
         2D list: The concatenated matrix
     """
+    if (not mat1 or not mat2)\
+        or (axis == 0 and len(mat1[0]) != len(mat2[0]))\
+        or (axis == 1 and len(mat1[0]) != len(mat2)):
+        return None
     concat = []
     if axis == 0:
         concat = mat1 + mat2
