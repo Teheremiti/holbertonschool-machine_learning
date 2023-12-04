@@ -13,4 +13,5 @@ def cat_arrays(arr1, arr2):
     Returns:
         list: The concatenanted list
     """
-    return arr1 + arr2
+    concat = arr1 + arr2
+    return concat
