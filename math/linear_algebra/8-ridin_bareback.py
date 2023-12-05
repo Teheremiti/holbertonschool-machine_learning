@@ -12,6 +12,9 @@ def mat_mul(mat1, mat2):
     Returns:
         2D-list: The multiple of mat1 and mat2
     """
+    if len(mat1[0]) != len(mat2):
+        return None
+
     mul = []
     for i in range(len(mat1)):
         row = []
