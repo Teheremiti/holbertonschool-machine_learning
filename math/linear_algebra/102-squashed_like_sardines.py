@@ -60,7 +60,16 @@ def cat_matrices(mat1, mat2, axis=0):
         matrix: The matrix corresponding to the concatenation of mat1 and mat2
                 along axis.
     """
-    if len(matrix_shape(mat1)) != len(matrix_shape(mat2)):
+    shape1 = matrix_shape(mat1)
+    shape2 = matrix_shape(mat2)
+    if len(shape1) != len(shape2):
         return None
+
+    for i in range(len(shape1)):
+        if i == axis:
+            continue
+        else:
+            if shape1[i] != shape2[i]:
+                return None
 
     return recursive_cat(mat1, mat2, 0, axis)
