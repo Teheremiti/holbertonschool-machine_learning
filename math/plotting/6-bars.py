@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(5)
+fruit = np.random.randint(0, 20, (4, 3))
+
+names = ['Farrah', 'Fred', 'Felicia']
+colors = ['r', 'yellow', '#ff8000', '#ffe5b4']
+labels = ['apples', 'bananas', 'oranges', 'peaches']
+
+for i in range(len(fruit)):
+    plt.bar(
+        names,
+        fruit[i],
+        0.5,
+        bottom=np.sum(fruit[:i], 0),
+        color=colors[i],
+        label=labels[i]
+        )
+
+plt.title('Number of Fruit per Person')
+plt.ylabel('Quantity of Fruit')
+plt.yticks(range(0, 81, 10))
+plt.legend()
+
+plt.show()
