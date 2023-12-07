@@ -9,15 +9,17 @@ names = ['Farrah', 'Fred', 'Felicia']
 colors = ['r', 'yellow', '#ff8000', '#ffe5b4']
 labels = ['apples', 'bananas', 'oranges', 'peaches']
 
+bottom = 0
 for i in range(len(fruit)):
     plt.bar(
         names,
         fruit[i],
-        0.5,
-        bottom=np.sum(fruit[:i], 0),
+        width=0.5,
+        bottom=bottom,
         color=colors[i],
         label=labels[i]
         )
+    bottom += fruit[i]
 
 plt.title('Number of Fruit per Person')
 plt.ylabel('Quantity of Fruit')
