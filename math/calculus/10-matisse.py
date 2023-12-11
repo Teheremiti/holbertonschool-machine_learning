@@ -17,8 +17,8 @@ def poly_derivative(poly):
        or not isinstance(poly, list)\
        or any([not isinstance(ele, int) for ele in poly]):
         return None
-    
-    if poly == [0]:
+
+    if len(poly) == 1:
         return [0]
 
     derivative = []
