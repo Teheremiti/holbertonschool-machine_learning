@@ -13,9 +13,13 @@ def poly_derivative(poly):
     Returns:
         list: The list of coefficients corresponding to the derivative of poly
     """
-    if not isinstance(poly, list)\
+    if not poly\
+       or not isinstance(poly, list)\
        or any([not isinstance(ele, int) for ele in poly]):
         return None
+    
+    if poly == [0]:
+        return [0]
 
     derivative = []
     for power in range(1, len(poly)):
