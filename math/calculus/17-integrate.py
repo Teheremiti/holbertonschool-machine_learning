@@ -13,10 +13,14 @@ def poly_integral(poly, C=0):
     Returns:
         list: The integral polynomial as a list
     """
-    if not isinstance(poly, list)\
+    if not poly\
+       or not isinstance(poly, list)\
        or any([not isinstance(ele, int) for ele in poly])\
        or not isinstance(C, int):
         return None
+
+    if len(poly) == 1:
+        return [C]
 
     integral = [C]
     for power in range(len(poly)):
