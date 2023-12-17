@@ -56,7 +56,31 @@ class Binomial:
                 nfacto *= i
             return nfacto
 
+        if k <= 0:
+            return 0
+        elif not isinstance(k, int):
+            k = int(k)
+
         n = self.n
         p = self.p
         bi_coef = facto(n) / (facto(k) * facto(n - k))
         return bi_coef * p**k * (1 - p)**(n - k)
+
+    def cdf(self, k):
+        """
+        Calculates the binomial CDF for a given number of successes.
+
+        Args:
+            k (int): The number of successes.
+
+        Returns:
+            float: The binomial CDF for k successes.
+        """
+        if k <= 0:
+            return 0
+        elif not isinstance(k, int):
+            k = int(k)
+        cdf = 0
+        for i in range(k + 1):
+            cdf += self.pmf(i)
+        return cdf
