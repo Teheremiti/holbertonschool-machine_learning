@@ -83,7 +83,7 @@ class Poisson:
 
         µ = self.lambtha
         sum = 0
-        for i in range(k):
+        for i in range(k + 1):
             sum += (µ ** i) / ifacto(i)
 
         e = 2.7182818285
