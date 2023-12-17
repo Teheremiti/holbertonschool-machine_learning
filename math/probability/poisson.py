@@ -44,11 +44,11 @@ class Poisson:
         Returns:
             float: The PMF value for k.
         """
-        if not isinstance(k, int):
-            k = int(k)
-
-        elif k <= 0:
+        if k <= 0:
             return 0
+
+        elif not isinstance(k, int):
+            k = int(k)
 
         e = 2.7182818285
         µ = self.lambtha
@@ -57,3 +57,15 @@ class Poisson:
             kfacto *= i
 
         return (e ** -µ) * (µ ** k) / kfacto
+
+    # def cdf(self, k):
+    #     def idk(µ, k):
+    #         kfacto = 1
+    #         for i in range(1, k + 1):
+    #             kfacto *= i
+    #         return (µ ** k) / kfacto
+
+    #     e = 2.7182818285
+    #     µ = self.lambtha
+
+    #     return (e ** -µ) * (sum(map(idk, )))
