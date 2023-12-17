@@ -58,14 +58,27 @@ class Poisson:
 
         return (e ** -µ) * (µ ** k) / kfacto
 
-    # def cdf(self, k):
-    #     def idk(µ, k):
-    #         kfacto = 1
-    #         for i in range(1, k + 1):
-    #             kfacto *= i
-    #         return (µ ** k) / kfacto
+    def cdf(self, k):
+        """
+        Calculates the CDF for a given number of succeses
 
-    #     e = 2.7182818285
-    #     µ = self.lambtha
+        Args:
+            k (int): The number of successes
 
-    #     return (e ** -µ) * (sum(map(idk, )))
+        Returns:
+            float: The CDF value for k successes
+        """
+        def ifacto(i):
+            """ Computes the factorial for i """
+            ifacto = 1
+            for j in range(1, i + 1):
+                ifacto *= j
+            return ifacto
+
+        µ = self.lambtha
+        sum = 0
+        for i in range(k):
+            sum += (µ ** i) / ifacto(i)
+
+        e = 2.7182818285
+        return (e ** -µ) * sum
