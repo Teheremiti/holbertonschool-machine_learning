@@ -34,5 +34,29 @@ class Binomial:
             elif len(data) < 2:
                 raise ValueError('data must contain multiple values')
             else:
-                self.p = (sum(data) / len(data)) / 50
-                self.n = round(len(data) / 2)
+                # How am I supposed to deduct n and p from the outcomes of
+                # the trials ????
+                self.p = p
+                self.n = n
+
+    def pmf(self, k):
+        """
+        Calculates the binomial PMF for a given number of successes.
+
+        Args:
+            k (int): The number of successes.
+
+        Returns:
+            float: The binomial PMF for k successes.
+        """
+        def facto(n):
+            """ Factorial function """
+            nfacto = 1
+            for i in range(1, n + 1):
+                nfacto *= i
+            return nfacto
+
+        n = self.n
+        p = self.p
+        bi_coef = facto(n) / (facto(k) * facto(n - k))
+        return bi_coef * p**k * (1 - p)**(n - k)
