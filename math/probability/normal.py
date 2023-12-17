@@ -77,3 +77,24 @@ class Normal:
         µ = self.mean
         sdev = self.stddev
         return e**(-0.5 * ((x - µ) / sdev)**2) / (sdev * (2 * π)**0.5)
+
+    def cdf(self, x):
+        """
+        Calculates the Normal CDF for a given x-value
+
+        Args:
+            x (int/float): The x-value
+
+        Returns:
+            float: The Normal CDF for x
+        """
+        µ = self.mean
+        sdev = self.stddev
+
+        def erf(x):
+            """ Computes the error function on x """
+            series = x - ((x**3) / 3) + ((x**5) / 10)\
+                - ((x**7) / 42) + ((x**9) / 216)
+            return (2 / π**0.5) * series
+
+        return (1 + erf((x - µ) / (sdev * 2**0.5))) / 2
