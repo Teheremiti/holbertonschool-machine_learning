@@ -75,6 +75,12 @@ class Poisson:
                 ifacto *= j
             return ifacto
 
+        if k <= 0:
+            return 0
+
+        elif not isinstance(k, int):
+            k = int(k)
+
         µ = self.lambtha
         sum = 0
         for i in range(k):
