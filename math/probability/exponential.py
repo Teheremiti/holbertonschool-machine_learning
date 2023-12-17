@@ -35,16 +35,32 @@ class Exponential:
 
     def pdf(self, x):
         """
-        Calculates the PDF for a given time period
+        Calculates the exponential PDF for a given time period.
 
         Args:
             x (int/float): The time period
 
         Returns:
-            float: The PDF value for x
+            float: The exponential PDF value for x
         """
         if x < 0:
             return 0
         e = 2.7182818285
         µ = self.lambtha
         return µ * (e ** -(µ * x))
+
+    def cdf(self, x):
+        """
+        Calculates the exponential CDF for a given time period.
+
+        Args:
+            x (int/float): The time period
+
+        Returns:
+            float: The exponential CDF value for x
+        """
+        if x < 0:
+            return 0
+        e = 2.7182818285
+        µ = self.lambtha
+        return 1 - e**(-µ * x)
