@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """ Normal class """
+π = 3.1415926536
+e = 2.7182818285
 
 
 class Normal:
@@ -37,3 +39,27 @@ class Normal:
                 self.mean = sum(data) / len(data)
                 var = sum([(ele - self.mean)**2 for ele in data]) / len(data)
                 self.stddev = var**0.5
+
+    def z_score(self, x):
+        """
+        Calculates the z_score for a given x-value.
+
+        Args:
+            x (int/float): The x-value
+
+        Returns:
+            float: The z-score for x
+        """
+        return (x - self.mean) / self.stddev
+
+    def x_value(self, z):
+        """
+        Calculates the x_score for a given z-score.
+
+        Args:
+            z (int/float): The z-score
+
+        Returns:
+            float: The x-value for z
+        """
+        return self.stddev * z + self.mean
