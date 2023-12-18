@@ -59,7 +59,7 @@ class Binomial:
             float: The binomial PMF for k successes.
         """
 
-        if k <= 0:
+        if k < 0:
             return 0
         elif not isinstance(k, int):
             k = int(k)
@@ -79,7 +79,7 @@ class Binomial:
         Returns:
             float: The binomial CDF for k successes.
         """
-        if k <= 0:
+        if k < 0:
             return 0
         elif not isinstance(k, int):
             k = int(k)
