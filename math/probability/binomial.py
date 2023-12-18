@@ -2,6 +2,14 @@
 """ Binonial class """
 
 
+def facto(n):
+    """ Factorial function """
+    nfacto = 1
+    for i in range(1, n + 1):
+        nfacto *= i
+    return nfacto
+
+
 class Binomial:
     """ Class that represents the Binomial distribution """
     def __init__(self, data=None, n=1, p=0.5):
@@ -34,10 +42,11 @@ class Binomial:
             elif len(data) < 2:
                 raise ValueError('data must contain multiple values')
             else:
-                # How am I supposed to deduct n and p from the outcomes of
-                # the trials ????
-                self.p = p
-                self.n = n
+                µ = sum(data) / len(data)
+                variance = sum((x - µ)**2 for x in data) / len(data)
+                self.p = 1 - (variance / µ)
+                self.n = round(µ / self.p)
+                self.p = µ / self.n
 
     def pmf(self, k):
         """
@@ -49,12 +58,6 @@ class Binomial:
         Returns:
             float: The binomial PMF for k successes.
         """
-        def facto(n):
-            """ Factorial function """
-            nfacto = 1
-            for i in range(1, n + 1):
-                nfacto *= i
-            return nfacto
 
         if k <= 0:
             return 0
