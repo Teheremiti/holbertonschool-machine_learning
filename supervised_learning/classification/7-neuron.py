@@ -125,8 +125,8 @@ class Neuron:
             iterations (int, optional): The number of iterations to train over.
                 Defaults to 5000.
             alpha (float, optional): The learning rate. Defaults to 0.05.
-                verbose (bool): Defines whether or not to print information about
-                the training.
+                verbose (bool): Defines whether or not to print information
+                about the training.
             graph (bool): Defines whether or not to graph information about the
                 training once it has completed.
 
