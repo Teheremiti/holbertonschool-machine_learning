@@ -101,7 +101,7 @@ class NeuralNetwork:
         Evaluates the neural network’s predictions.
 
         Args:
-            X (ndarray): Matrix with shape (nx, m) that contains the input data.
+            X (ndarray): Matrix with shape (nx, m) containing the input data.
             Y (ndarray): Matrix with shape (1, m) that contains the correct
                 labels for the input data.
 
