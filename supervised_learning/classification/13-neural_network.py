@@ -128,7 +128,7 @@ class NeuralNetwork:
             alpha (float, optional): The learning rate. Defaults to 0.05.
         """
         m = X.shape[1]
-        
+
         dZ2 = A2 - Y
         dW2 = (1 / m) * np.matmul(dZ2, A1.T)
         db2 = (1 / m) * np.sum(dZ2, axis=1, keepdims=True)
