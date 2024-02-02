@@ -84,8 +84,10 @@ class NeuralNetwork:
         """
         Calculates the cost of the model using logistic regression.
         Args:
-            Y (ndarray): 
-            A (ndarray): 
+            Y (ndarray): Matrix with shape (1, m) that contains the correct
+                labels for the input data.
+            A (ndarray): Matrix with shape (1, m) containing the activated
+                output of the neuron for each example.
 
         Returns:
             The cost of the model.
