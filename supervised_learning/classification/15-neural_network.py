@@ -188,21 +188,21 @@ class NeuralNetwork:
 
         costs = []
         count = []
-        for i in range(iterations + 1):
-            self.forward_prop(X)
-            self.gradient_descent(X, Y, self.__A1, self.__A2, alpha)
-
         if verbose or graph:
             if not isinstance(step, int):
                 raise TypeError("step must be an integer")
             if step < 1 or step > iterations:
                 raise ValueError("step must be positive and <= iterations")
 
-            if i % step == 0 or i == 0 or i == iterations:
-                cost = self.cost(Y, self.__A2)
-                print(f"Cost after {i} iterations: {cost}")
-                costs.append(cost)
-                count.append(i)
+            for i in range(iterations + 1):
+                self.forward_prop(X)
+                self.gradient_descent(X, Y, self.__A1, self.__A2, alpha)
+
+                if i % step == 0 or i == 0 or i == iterations:
+                    cost = self.cost(Y, self.__A2)
+                    print(f"Cost after {i} iterations: {cost}")
+                    costs.append(cost)
+                    count.append(i)
 
             if graph:
                 plt.plot(count, costs, 'b-')
