@@ -167,8 +167,8 @@ class DeepNeuralNetwork:
                 labels for the input data.
             iterations (int): The number of iterations to train over.
             alpha (float): The learning rate.
-            verbose (bool): Defines whether or not to print information about the
-                training.
+            verbose (bool): Defines whether or not to print information about
+                the training.
             graph (bool): Defines whether or not to graph information about the
                 training once the training has completed
             step (int): Defines the number of steps between each information
