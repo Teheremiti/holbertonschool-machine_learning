@@ -99,7 +99,7 @@ class DeepNeuralNetwork:
             self.__cache["A{}".format(i)] = A
 
         W = self.__weights["W{}".format(L)]
-        A_l = self.__cache("A{}".format(L - 1))
+        A_l = self.__cache["A{}".format(L - 1)]
         b = self.__weights["b{}".format(L)]
         Z = np.matmul(W, A_l) + b
         A = np.exp(Z) / np.sum(np.exp(Z), axis=0)
