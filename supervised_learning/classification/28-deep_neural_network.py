@@ -37,7 +37,7 @@ class DeepNeuralNetwork:
                 not all(map(lambda x: isinstance(x, int) and x > 0, layers))):
             raise TypeError("layers must be a list of positive integers")
 
-        if activation not in ['sig, tanh']:
+        if activation not in ['sig', 'tanh']:
             raise ValueError("activation must be 'sig' or 'tanh'")
 
         self.__L = len(layers)
@@ -88,21 +88,22 @@ class DeepNeuralNetwork:
         L = self.__L
 
         for i in range(1, L):
-            Z = (np.matmul(self.__weights["W" + str(i)],
-                           self.__cache['A' + str(i - 1)]) +
-                 self.__weights['b' + str(i)])
+            W = self.__weights["W{}".format(i)]
+            A_l = self.__cache["A{}".format(i - 1)]
+            Z = np.matmul(W, A_l)
+
             if self.__activation == 'sig':
                 A = 1 / (1 + np.exp(-Z))
             else:
                 A = np.tanh(Z)
-            self.__cache['A' + str(i)] = A
+            self.__cache["A{}".format(i)] = A
 
-        Z = (np.matmul(self.__weights["W" + str(L)],
-                       self.__cache['A' + str(L - 1)]) +
-             self.__weights['b' + str(L)])
+        W = self.__weights["W{}".format(L)]
+        A_l = self.__cache("A{}".format(L - 1))
+        b = self.__weights["b{}".format(L)]
+        Z = np.matmul(W, A_l) + b
         A = np.exp(Z) / np.sum(np.exp(Z), axis=0)
-        self.__cache['A' + str(L)] = A
-
+        self.__cache["A{}".format(L)] = A
         return A, self.__cache
 
     def cost(self, Y, A):
