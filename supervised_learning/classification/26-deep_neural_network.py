@@ -209,7 +209,7 @@ class DeepNeuralNetwork:
             count.append(i)
 
             if verbose and (i % step == 0 or i == 0 or i == iterations):
-                print(f"Cost after {i} iterations: {cost}")
+                print("Cost after {} iterations: {}".format(i, cost))
 
         if graph:
             plt.plot(count, costs, 'b-')
