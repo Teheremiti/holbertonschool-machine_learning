@@ -156,25 +156,25 @@ class DeepNeuralNetwork:
         L = self.__L
         m = Y.shape[1]
 
-        dZ = cache["A{}".format(L)] - Y
-        dW = np.matmul(dZ, cache["A{}".format(L - 1)].T) / m
+        dZ = cache['A' + str(L)] - Y
+        dW = np.matmul(dZ, cache['A' + str(L - 1)].T) / m
         db = np.sum(dZ, axis=1, keepdims=True) / m
-        W_prev = np.copy(self.__weights["W{}".format(L)])
-        self.__weights["W{}".format(L)] -= alpha * dW
-        self.__weights["b{}".format(L)] -= alpha * db
+        W_prev = np.copy(self.__weights['W' + str(L)])
+        self.__weights['W' + str(L)] -= alpha * dW
+        self.__weights['b' + str(L)] -= alpha * db
 
-        for i in range(L - 1, 0, -1):
+        for l in range(L - 1, 0, -1):
             dA = np.matmul(W_prev.T, dZ)
-            A = cache["A{}".format(i)]
+            A = cache['A' + str(l)]
             if self.__activation == 'sig':
                 dZ = dA * A * (1 - A)
             else:
                 dZ = dA * (1 - (A ** 2))
-            dW = np.matmul(dZ, cache["A{}".format(i - 1)].T) / m
+            dW = np.matmul(dZ, cache['A' + str(l - 1)].T) / m
             db = np.sum(dZ, axis=1, keepdims=True) / m
-            W_prev = np.copy(self.__weights["W{}".format(i)])
-            self.__weights["W{}".format(i)] -= alpha * dW
-            self.__weights["b{}".format(i)] -= alpha * db
+            W_prev = np.copy(self.__weights['W' + str(l)])
+            self.__weights['W' + str(l)] -= alpha * dW
+            self.__weights['b' + str(l)] -= alpha * db
 
     def train(self, X, Y, iterations=5000, alpha=0.05,
               verbose=True, graph=True, step=100):
