@@ -170,7 +170,7 @@ class DeepNeuralNetwork:
                 dZ = dA * A * (1 - A)
             else:
                 dZ = dA * (1 - (A ** 2))
-            dW = np.matmul(dZ, cache["A{}".format(i)].T) / m
+            dW = np.matmul(dZ, cache["A{}".format(i - 1)].T) / m
             db = np.sum(dZ, axis=1, keepdims=True) / m
             W_prev = np.copy(self.__weights["W{}".format(i)])
             self.__weights["W{}".format(i)] -= alpha * dW
