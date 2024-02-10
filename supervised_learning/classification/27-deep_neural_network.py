@@ -209,7 +209,10 @@ class DeepNeuralNetwork:
         count = []
         for i in range(iterations + 1):
             A, cache = self.forward_prop(X)
-            self.gradient_descent(Y, cache, alpha)
+
+            if i != iterations:
+                self.gradient_descent(Y, cache, alpha)
+
             cost = self.cost(Y, A)
             costs.append(cost)
             count.append(i)
