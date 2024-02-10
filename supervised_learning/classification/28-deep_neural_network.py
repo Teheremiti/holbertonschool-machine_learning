@@ -88,22 +88,21 @@ class DeepNeuralNetwork:
         L = self.__L
 
         for i in range(1, L):
-            W = self.__weights["W{}".format(i)]
-            A_l = self.__cache["A{}".format(i - 1)]
-            Z = np.matmul(W, A_l)
-
+            Z = (np.matmul(self.__weights["W" + str(i)],
+                           self.__cache['A' + str(i - 1)]) +
+                 self.__weights['b' + str(i)])
             if self.__activation == 'sig':
                 A = 1 / (1 + np.exp(-Z))
             else:
                 A = np.tanh(Z)
-            self.__cache["A{}".format(i)] = A
+            self.__cache['A' + str(i)] = A
 
-        W = self.__weights["W{}".format(L)]
-        A_l = self.__cache("A{}".format(L - 1))
-        b = self.__weights["b{}".format(L)]
-        Z = np.matmul(W, A_l) + b
+        Z = (np.matmul(self.__weights["W" + str(L)],
+                       self.__cache['A' + str(L - 1)]) +
+             self.__weights['b' + str(L)])
         A = np.exp(Z) / np.sum(np.exp(Z), axis=0)
-        self.__cache["A{}".format(L)] = A
+        self.__cache['A' + str(L)] = A
+
         return A, self.__cache
 
     def cost(self, Y, A):
