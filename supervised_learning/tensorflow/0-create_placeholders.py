@@ -16,5 +16,5 @@ def create_placeholders(nx, classes):
         for the one-hot labels for the input data, respectively.
     """
     x = tf.placeholder(dtype="float32", shape=[None, nx], name="x")
-    y = tf.placeholder(dtype="float32", shape=[None, nx], name="y")
+    y = tf.placeholder(dtype="float32", shape=[None, classes], name="y")
     return x, y
