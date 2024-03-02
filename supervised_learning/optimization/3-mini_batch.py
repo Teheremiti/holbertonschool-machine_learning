@@ -13,10 +13,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
     Trains a loaded neural network model using mini-batch gradient descent.
 
     Args:
-        X_train (ndarray): Matrix of shape (m, 784), contains the training data.
-        Y_train (ndarray): Matrix of shape (m, 10), contains the training labels.
-        X_valid (ndarray): Matrix of shape (m, 784), contains the validation data.
-        Y_valid (ndarray): Matrix of shape (m,10), contains the validation labels.
+        X_train (ndarray): Matrix of shape (m, 784), the training data.
+        Y_train (ndarray): Matrix of shape (m, 10), the training labels.
+        X_valid (ndarray): Matrix of shape (m, 784), the validation data.
+        Y_valid (ndarray): Matrix of shape (m, 10), validation labels.
         batch_size (int): The number of data points in batch.
         epochs (int): The number of times the training should pass through
             the whole dataset.
