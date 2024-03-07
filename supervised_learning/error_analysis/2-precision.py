@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-    Precision
-"""
-
+""" Function precision """
 import numpy as np
 
 
