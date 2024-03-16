@@ -23,7 +23,7 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
         L (int): The number of layers of the network.
     """
     m = Y.shape[1]
-    dZ = cache[f'A{L}'] - Y
+    dZ = cache['A' + str(L)] - Y
 
     for layer in range(L, 0, -1):
         L2_regularization = lambtha / m * weights[f'W{layer}']
