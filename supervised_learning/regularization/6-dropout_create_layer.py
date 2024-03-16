@@ -10,7 +10,8 @@ def dropout_create_layer(prev, n, activation, keep_prob):
     Args:
         prev (tensor): The output of the previous layer.
         n (int): The number of nodes the new layer should contain.
-        activation (str): The activation function that should be used on the layer.
+        activation (str): The activation function that should be used on the
+            layer.
         keep_prob (float): The probability that a node will be kept.
 
     Returns:
