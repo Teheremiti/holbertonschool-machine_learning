@@ -22,9 +22,8 @@ class Node:
                 left_depth = max_depth_recursion(node.left_child, depth + 1)
                 right_depth = max_depth_recursion(node.right_child, depth + 1)
                 return max(left_depth, right_depth)
-        
+
         return max_depth_recursion(self, 0)
-            
 
 
 class Leaf(Node):
