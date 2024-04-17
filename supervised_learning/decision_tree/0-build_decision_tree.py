@@ -4,8 +4,20 @@ import numpy as np
 
 
 class Node:
+    """ Defines a node of the decision tree. """
     def __init__(self, feature=None, threshold=None, left_child=None,
                  right_child=None, is_root=False, depth=0):
+        """
+        Class constructor for Node instances.
+
+        Args:
+            feature (int, optional): _description_. Defaults to None.
+            threshold (float, optional): _description_. Defaults to None.
+            left_child (Node, optional): _description_. Defaults to None.
+            right_child (Node, optional): _description_. Defaults to None.
+            is_root (bool, optional): _description_. Defaults to False.
+            depth (int, optional): _description_. Defaults to 0.
+        """
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
@@ -29,7 +41,15 @@ class Node:
 
 
 class Leaf(Node):
+    """ Defines a leaf of the decision tree. A leaf has no childs. """
     def __init__(self, value, depth=None):
+        """
+        Class constructor for Leaf instances.
+
+        Args:
+            value (int): The value held by the leaf.
+            depth (int, optional): The depth of the leaf. Defaults to None.
+        """
         super().__init__()
         self.value = value
         self.is_leaf = True
@@ -40,8 +60,19 @@ class Leaf(Node):
 
 
 class Decision_Tree():
+    """ Defines a decision tree. """
     def __init__(self, max_depth=10, min_pop=1, seed=0,
                  split_criterion="random", root=None):
+        """
+        Class constructor for Decision_tree instances.
+
+        Args:
+            max_depth (int, optional): _description_. Defaults to 10.
+            min_pop (int, optional): _description_. Defaults to 1.
+            seed (int, optional): _description_. Defaults to 0.
+            split_criterion (str, optional): description. Defaults to "random".
+            root (bool, optional): _description_. Defaults to None.
+        """
         self.rng = np.random.default_rng(seed)
         if root:
             self.root = root
