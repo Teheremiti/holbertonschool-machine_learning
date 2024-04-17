@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" Node, Leaf, and Decision_Tree classes """
 import numpy as np
 
 
@@ -15,9 +16,8 @@ class Node:
         self.depth = depth
 
     def max_depth_below(self):
-        """ Computes the depth of a decision tree. """
+        """ Computes the depth of a decision tree using recursion. """
         def max_depth_recursion(node, depth):
-            """ Uses resursion to determine the depth. """
             if node.is_leaf is True:
                 return depth
             else:
