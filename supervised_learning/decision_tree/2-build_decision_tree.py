@@ -104,7 +104,7 @@ class Leaf(Node):
 
     def __str__(self):
         """ Defines the printing format for a Leaf instance. """
-        return (f"-> leaf [value={self.value}] ")
+        return (f"-> leaf [value={self.value}]")
 
 
 class Decision_Tree():
@@ -145,4 +145,4 @@ class Decision_Tree():
 
     def __str__(self):
         """ Defines the printing format for a Decision_Tree instance. """
-        return f"{self.root.__str__()}\n"
+        return {self.root.__str__()}+"\n"
