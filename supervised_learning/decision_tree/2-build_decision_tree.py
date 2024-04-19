@@ -146,4 +146,4 @@ class Decision_Tree():
 
     def __str__(self):
         """ Defines the printing format for a Decision_Tree instance. """
-        return self.root.__str__()
+        return self.root.__str__()+"\n"
