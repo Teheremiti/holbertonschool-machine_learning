@@ -69,11 +69,10 @@ class Node:
     def __str__(self):
         """ Defines the printing format for a Node instance. """
         if self.is_root:
-            node_type = "root"
+            t = "root"
         else:
-            node_type = "-> node"
-        return node_type + " [feature="+str(self.feature)\
-            + ", threshold="+str(self.threshold)+"]\n"\
+            t = "-> node"
+        return f"{t} [feature={self.feature}, threshold={self.threshold}]\n"\
             + self.left_child_add_prefix(str(self.left_child))\
             + self.right_child_add_prefix(str(self.right_child))
 
