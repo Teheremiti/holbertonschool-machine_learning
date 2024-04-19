@@ -80,9 +80,6 @@ class Node:
 
     def get_leaves_below(self):
         """ Returns the list of leaves below the current Node instance. """
-        if self.is_leaf:
-            return [self]
-
         left_leaves = self.left_child.get_leaves_below()
         right_leaves = self.right_child.get_leaves_below()
         return left_leaves + right_leaves
