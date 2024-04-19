@@ -53,6 +53,7 @@ class Node:
         return lcount + rcount + (not only_leaves)
 
     def left_child_add_prefix(self, text):
+        """ Adds the prefix in the line for correct printing of the tree. """
         lines = text.split("\n")
         new_text = "    +--"+lines[0]+"\n"
         for x in lines[1:]:
@@ -60,6 +61,7 @@ class Node:
         return (new_text)
 
     def right_child_add_prefix(self, text):
+        """ Adds the prefix in the line for correct printing of the tree. """
         lines = text.split("\n")
         new_text = "    +--"+lines[0]+"\n"
         for x in lines[1:]:
