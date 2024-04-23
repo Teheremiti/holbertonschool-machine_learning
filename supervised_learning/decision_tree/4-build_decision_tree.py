@@ -85,6 +85,10 @@ class Node:
         return left_leaves + right_leaves
 
     def update_bounds_below(self):
+        """ Updates the lower and upper bounds observed in the data subset
+        associated with the Node instance. Attributes lower and upper are
+        dictionnaries, the keys represent the features and each feature has a
+        bound. """
         if self.is_root:
             self.upper = {0: np.inf}
             self.lower = {0: -1*np.inf}
