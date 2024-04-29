@@ -85,6 +85,16 @@ class Random_Forest():
                                                       self.target)}""")
 
     def accuracy(self, test_explanatory, test_target):
+        """
+        Computes the accuracy of the Random Forest model on test data.
+
+        Args:
+            test_explanatory (np.ndarray): The explanatory variables of the td.
+            test_target (np.ndarray): The target variable of the test data.
+
+        Returns:
+            float: The accuracy of the Random Forest model on the test data.
+        """
         return np.sum(
             np.equal(
                 self.predict(test_explanatory), test_target))/test_target.size
