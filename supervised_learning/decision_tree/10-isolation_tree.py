@@ -58,7 +58,7 @@ class Isolation_Random_Tree():
             only_leaves (bool, optional): Defines if the root and internal
                 nodes are excluded to count only the leaves. Defaults to False.
         """
-        return self.root.count_nodes_below()
+        return self.root.count_nodes_below(only_leaves)
 
     def update_bounds(self):
         """ Updates the bounds for nodes in the tree. """
