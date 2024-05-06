@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-from tensorflow.python.keras.models import Sequential
-from tensorflow.python.keras.layers import Dense, Dropout
-from tensorflow.python.keras.regularizers import L2
+import tensorflow.keras as K
 
 
 def build_model(nx, layers, activations, lambtha, keep_prob):
@@ -21,13 +19,13 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
     Returns:
         The Keras model.
     """
-    model = Sequential()
+    model = K.models.Sequential()
     for i in range(len(layers)):
-        model.add(Dense(units=layers[i],
+        model.add(K.layers.Dense(units=layers[i],
                         activation=activations[i],
-                        kernel_regularizer=L2(lambtha),
+                        kernel_regularizer=K.regularizers.L2(lambtha),
                         input_dim=nx))
 
         if i != len(layers) - 1 and keep_prob is not None:
-            model.add(Dropout(rate=1 - keep_prob))
+            model.add(K.layers.Dropout(rate=1 - keep_prob))
     return model
