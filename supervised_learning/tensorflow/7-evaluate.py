@@ -11,7 +11,7 @@ def evaluate(X, Y, save_path):
         X (ndarray): Matrix containing the input data to evaluate.
         Y (ndarray): Matrix containing the one-hot labels for X.
         save_path (str): The location to load the model from.
-        
+
     Returns:
         The network’s prediction, accuracy, and loss.
     """
