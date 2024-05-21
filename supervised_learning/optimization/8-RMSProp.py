@@ -17,6 +17,6 @@ def create_RMSProp_op(alpha, beta2, epsilon):
     Returns:
         The RMSProp optimization operation.
     """
-    return tf.keras.optimizers.RMSProp(learning_rate=alpha,
+    return tf.keras.optimizers.RMSprop(learning_rate=alpha,
                                        rho=beta2,
                                        epsilon=epsilon)
