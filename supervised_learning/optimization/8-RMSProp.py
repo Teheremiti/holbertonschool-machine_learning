@@ -3,7 +3,7 @@
 import tensorflow as tf
 
 
-def create_RMSProp_op(loss, alpha, beta2, epsilon):
+def create_RMSProp_op(alpha, beta2, epsilon):
     """
     Creates the training operation for a neural network in tensorflow using
     the RMSProp optimization algorithm.
@@ -17,8 +17,6 @@ def create_RMSProp_op(loss, alpha, beta2, epsilon):
     Returns:
         The RMSProp optimization operation.
     """
-    optimizer = tf.compat.v1.train.RMSPropOptimizer(learning_rate=alpha,
-                                          decay=beta2,
-                                          epsilon=epsilon)
-    train_op = optimizer.minimize(loss)
-    return train_op
+    return tf.keras.optimizers.RMSProp(learning_rate=alpha,
+                                       rho=beta2,
+                                       epsilon=epsilon)

@@ -16,23 +16,21 @@ def create_batch_norm_layer(prev, n, activation):
     Returns:
         A tensor of the  activated output for the layer.
     """
-    initializer = tf.compat.v1.keras.initializers.VarianceScaling(
+    initializer = tf.keras.initializers.VarianceScaling(
         mode='fan_avg')
 
-    new_layer = tf.compat.v1.layers.Dense(n,
-                                activation=None,
-                                kernel_initializer=initializer,
-                                name="layer")
+    dense_layer = tf.keras.layers.Dense(units=n,
+                                        kernel_initializer=initializer)
 
-    x = new_layer(prev)
-    mean, variance = tf.compat.v1.nn.moments(x, axes=[0])
+    x = dense_layer(prev)
+    mean, variance = tf.nn.moments(x, axes=[0])
 
-    gamma = tf.compat.v1.Variable(tf.compat.v1.ones([n]), name='gamma')
-    beta = tf.compat.v1.Variable(tf.compat.v1.zeros([n]), name='beta')
+    gamma = tf.Variable(tf.ones((1, n)), name='gamma')
+    beta = tf.Variable(tf.zeros((1, n)), name='beta')
 
-    epsilon = 1e-8
+    epsilon = 1e-7
 
-    x_norm = tf.compat.v1.nn.batch_normalization(
+    x_batch_norm = tf.nn.batch_normalization(
         x=x,
         mean=mean,
         variance=variance,
@@ -40,4 +38,4 @@ def create_batch_norm_layer(prev, n, activation):
         scale=gamma,
         variance_epsilon=epsilon)
 
-    return activation(x_norm)
+    return activation(x_batch_norm)

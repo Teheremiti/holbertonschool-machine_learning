@@ -3,7 +3,7 @@
 import tensorflow as tf
 
 
-def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
+def create_Adam_op(alpha, beta1, beta2, epsilon):
     """
     Creates the training operation for a neural network in tensorflow using
     the Adam optimization algorithm.
@@ -18,9 +18,7 @@ def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
     Returns:
         The Adam optimization operation.
     """
-    optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=alpha,
-                                       beta1=beta1,
-                                       beta2=beta2,
-                                       epsilon=epsilon)
-    train_op = optimizer.minimize(loss)
-    return train_op
+    return tf.keras.optimizers.Adam(learning_rate=alpha,
+                                    beta_1=beta1,
+                                    beta_2=beta2,
+                                    epsilon=epsilon)
