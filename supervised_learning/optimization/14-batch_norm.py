@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Batch Normalization Upgraded """
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 
 
 def create_batch_norm_layer(prev, n, activation):
@@ -16,22 +16,23 @@ def create_batch_norm_layer(prev, n, activation):
     Returns:
         A tensor of the  activated output for the layer.
     """
-    initializer = tf.keras.initializers.VarianceScaling(mode='fan_avg')
+    initializer = tf.compat.v1.keras.initializers.VarianceScaling(
+        mode='fan_avg')
 
-    new_layer = tf.layers.Dense(n,
+    new_layer = tf.compat.v1.layers.Dense(n,
                                 activation=None,
                                 kernel_initializer=initializer,
                                 name="layer")
 
     x = new_layer(prev)
-    mean, variance = tf.nn.moments(x, axes=[0])
+    mean, variance = tf.compat.v1.nn.moments(x, axes=[0])
 
-    gamma = tf.Variable(tf.ones([n]), name='gamma')
-    beta = tf.Variable(tf.zeros([n]), name='beta')
+    gamma = tf.compat.v1.Variable(tf.compat.v1.ones([n]), name='gamma')
+    beta = tf.compat.v1.Variable(tf.compat.v1.zeros([n]), name='beta')
 
     epsilon = 1e-8
 
-    x_norm = tf.nn.batch_normalization(
+    x_norm = tf.compat.v1.nn.batch_normalization(
         x=x,
         mean=mean,
         variance=variance,
