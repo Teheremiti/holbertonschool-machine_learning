@@ -8,40 +8,35 @@ def convolve_grayscale_same(images, kernel):
     Performs a same convolution on grayscale images.
 
     Args:
-        images (ndarray): Matrix of shape (m, h, w), multiple grayscale images
-        kernel (ndarray): Matrix of shape (kh,kw), kernel for convolution
+        images (np.ndarray): Matrix with shape (m, h, w) containing multiple
+            grayscale images.
+            - m is the number of images
+            - h is the height in pixels of the images
+            - w is the width in pixels of the images
+        kernel (np.ndarray): Matrix with shape (kh, kw) containing the kernel
+            for the convolution.
+            - kh is the height of the kernel
+            - kw is the width of the kernel
 
     Returns:
-        ndarray: The matrix containing the convolved images.
+        np.ndarray: The matrix containing the convolved images.
     """
-    # size images and kernel
     m, h, w = images.shape
     kh, kw = kernel.shape
 
-    # output size
-    output_height = h
-    output_width = w
+    padding_height = int((kh - 1) / 2)
+    padding_width = int((kw - 1) / 2)
 
-    # initialize output
-    convolved_images = np.zeros((m, output_height, output_width))
+    convolutions = np.zeros((m, h, w))
 
-    # calcul padding (size odd or even)
-    padding_width = int(kw / 2)
-    padding_height = int(kh / 2)
+    padded_images = np.pad(images,
+                           ((0, 0), (padding_height, padding_height),
+                            (padding_width, padding_width)),
+                           mode='constant')
 
-    # add zero padding to the input images
-    image_pad = np.pad(images,
-                       ((0, 0), (padding_height, padding_height),
-                        (padding_width, padding_width)), mode='constant')
+    for i in range(h):
+        for j in range(w):
+            image_zone = padded_images[:, i:i+kh, j:j+kw]
+            convolutions[:, i, j] = np.sum(image_zone * kernel, axis=(1, 2))
 
-    # convolution
-    for i in range(output_height):
-        for j in range(output_width):
-            # extract region from each image
-            image_zone = image_pad[:, i:i+kh, j:j+kw]
-
-            # element wize multiplication
-            convolved_images[:, i, j] = np.sum(image_zone * kernel,
-                                               axis=(1, 2))
-
-    return convolved_images
+    return convolutions

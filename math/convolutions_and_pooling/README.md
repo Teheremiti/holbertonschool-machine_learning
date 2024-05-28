@@ -1,1 +1,1 @@
-# Convolutions & Pooling
+# Math - Convolutions and Pooling
