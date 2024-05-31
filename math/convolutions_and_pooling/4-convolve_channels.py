@@ -1,4 +1,4 @@
-#!/usr/bin/rnv python3
+#!/usr/bin/env python3
 """ Convolution with Channels """
 import numpy as np
 
