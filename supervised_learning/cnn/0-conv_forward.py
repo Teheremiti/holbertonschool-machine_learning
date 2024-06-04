@@ -36,8 +36,8 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     sh, sw = stride
 
     pad = {'valid': (0, 0),
-           'same': ((kh - h_prev + (h_prev - 1)*sh) // 2 + 1,
-                    (kw - w_prev + (w_prev - 1)*sw) // 2 + 1)}
+           'same': ((kh - h_prev + (h_prev - 1)*sh) // 2,
+                    (kw - w_prev + (w_prev - 1)*sw) // 2)}
     ph, pw = pad[padding]
 
     output_height = (h_prev + 2*ph - kh) // sh + 1
