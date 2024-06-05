@@ -34,35 +34,35 @@ def lenet5(x, y):
     conv1 = tf.layers.Conv2D(filters=6,
                              kernel_size=5,
                              padding='same',
-                             kernel_initializer=initializer,
-                             activation='relu')(x)
+                             activation='relu',
+                             kernel_initializer=initializer)(x)
 
     max_pool1 = tf.layers.MaxPooling2D(pool_size=2, strides=2)(conv1)
 
     conv2 = tf.layers.Conv2D(filters=16,
                              kernel_size=5,
                              padding='valid',
-                             kernel_initializer=initializer,
-                             activation='relu')(max_pool1)
+                             activation='relu',
+                             kernel_initializer=initializer)(max_pool1)
 
     max_pool2 = tf.layers.MaxPooling2D(pool_size=2, strides=2)(conv2)
 
     flatten = tf.layers.Flatten()(max_pool2)
 
     dense1 = tf.layers.Dense(units=120,
-                             kernel_initializer=initializer,
-                             activation='relu')(flatten)
+                             activation='relu',
+                             kernel_initializer=initializer)(flatten)
 
     dense2 = tf.layers.Dense(units=84,
-                             kernel_initializer=initializer,
-                             activation='relu')(dense1)
+                             activation='relu',
+                             kernel_initializer=initializer)(dense1)
 
     output = tf.layers.Dense(units=10,
                              kernel_initializer=initializer)(dense2)
 
     activated_output = tf.nn.softmax(output)
 
-    loss = tf.losses.softmax_cross_entropy(one_hot_labels=y, logits=output)
+    loss = tf.losses.softmax_cross_entropy(onehot_labels=y, logits=output)
 
     adam_optimizer = tf.train.AdamOptimizer().minimize(loss)
 
