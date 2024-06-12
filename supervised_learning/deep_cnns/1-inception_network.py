@@ -15,7 +15,7 @@ def inception_network():
         K.Model: The keras model.
     """
     # Input of the network
-    X = K.Input(shape=(224, 224, 3))
+    X = K.Input(shape=(224, 224, 3), name='input_1')
 
     # First convolution and pooling layers
     conv7x7 = K.layers.Conv2D(filters=64,
@@ -66,11 +66,9 @@ def inception_network():
     # Regularization and activations
     dropout = K.layers.Dropout(rate=0.4)(avg_pool)
 
-    linear = K.layers.Flatten()(dropout)
-
-    outputs = K.layers.Dense(units=1000, activation='softmax')(linear)
+    outputs = K.layers.Dense(units=1000, activation='softmax')(dropout)
 
     # Build model
-    model = K.Model(X, outputs)
+    model = K.Model(X, outputs, name='model')
 
     return model
