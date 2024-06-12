@@ -10,7 +10,7 @@ def inception_network():
     Builds an inception network. All convolutions inside and outside the
     inception block use a rectified linear activation (ReLU). The input data
     is assumed to have a shape of (224, 224, 3).
-    
+
     Returns:
         K.Model: The keras model.
     """
@@ -63,7 +63,7 @@ def inception_network():
 
     avg_pool = K.layers.AveragePooling2D(pool_size=7)(inception_5b)
 
-    # Regularization and activations 
+    # Regularization and activations
     dropout = K.layers.Dropout(rate=0.4)(avg_pool)
 
     linear = K.layers.Flatten()(dropout)
