@@ -13,7 +13,7 @@ def identity_block(A_prev, filters):
     initializer should be set to zero.
 
     Args:
-        A_prev (K.Input): The output from the previous layer.
+        A_prev (K.Input): The output of the previous layer.
         filters ({tuple, list}): Contains F11, F3, F12, respectively:
             - F11 is the number of filters in the first 1x1 convolution
             - F3 is the number of filters in the 3x3 convolution
