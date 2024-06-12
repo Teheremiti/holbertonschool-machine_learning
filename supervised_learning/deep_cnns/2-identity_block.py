@@ -30,29 +30,26 @@ def identity_block(A_prev, filters):
     # First convolution followed by batch normalization and ReLU activation
     conv1x1a = K.layers.Conv2D(filters=F11,
                                kernel_size=1,
-                               padding='same',
-                               activation='relu',
+                               padding="same",
                                kernel_initializer=he_normal)(A_prev)
     batch_norm1 = K.layers.BatchNormalization()(conv1x1a)
-    activation1 = K.layers.Activation(activation='relu')(batch_norm1)
+    activation1 = K.layers.Activation(activation="relu")(batch_norm1)
 
     # Second convolution followed by batch normalization and ReLU activation
     conv3x3 = K.layers.Conv2D(filters=F3,
                               kernel_size=3,
-                              padding='same',
-                              activation='relu',
+                              padding="same",
                               kernel_initializer=he_normal)(activation1)
     batch_norm2 = K.layers.BatchNormalization()(conv3x3)
-    activation2 = K.layers.Activation(activation='relu')(batch_norm2)
+    activation2 = K.layers.Activation(activation="relu")(batch_norm2)
 
     # Third convolution followed by batch normalization, add, and ReLU
     conv1x1b = K.layers.Conv2D(filters=F12,
                                kernel_size=1,
-                               padding='same',
-                               activation='relu',
+                               padding="same",
                                kernel_initializer=he_normal)(activation2)
     batch_norm3 = K.layers.BatchNormalization()(conv1x1b)
     add = K.layers.Add()([batch_norm3, A_prev])
-    output = K.layers.Activation(activation='relu')(add)
+    output = K.layers.Activation(activation="relu")(add)
 
     return output
