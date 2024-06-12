@@ -47,8 +47,10 @@ def inception_block(A_prev, filters):
                                      (1, 1),
                                      padding='same',
                                      activation='relu')(A_prev)
-    conv5x5 = K.layers.Conv2D(F5, (5, 5), padding='same',
-                     activation='relu')(conv5x5_reduce)
+    conv5x5 = K.layers.Conv2D(F5,
+                              (5, 5),
+                              padding='same',
+                              activation='relu')(conv5x5_reduce)
 
     # Max pooling followed by 1x1 convolution branch
     max_pool = K.layers.MaxPooling2D((3, 3),
