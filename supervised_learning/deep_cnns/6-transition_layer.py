@@ -25,7 +25,6 @@ def transition_layer(X, nb_filters, compression):
     # Compressed nb of filters
     filters = int(nb_filters * compression)
 
-
     # Transition layer : Bottleneck convolution compressed by the θ factor,
     # followed by a 2x2/2 average pooling.
     batch_norm = K.layers.BatchNormalization()(X)
