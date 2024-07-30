@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def scatter():
+    """ Scatter Plot. """
     mean = [69, 0]
     cov = [[15, 8], [8, 15]]
     np.random.seed(5)
@@ -14,7 +15,8 @@ def scatter():
     plt.figure(figsize=(6.4, 4.8))
 
     plt.plot(x, y, 'm.')
-    plt.xlabel('Height (in)')
-    plt.ylabel('Weight (lbs)')
     plt.title("Men's Height vs Weight")
+    plt.xlabel("Height (in)")
+    plt.ylabel("Weight (lbs)")
+    plt.savefig('scatter.png')
     plt.show()
