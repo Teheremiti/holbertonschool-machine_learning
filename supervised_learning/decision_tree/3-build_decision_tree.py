@@ -112,7 +112,7 @@ class Leaf(Node):
 
     def __str__(self):
         """ Defines the printing format for a Leaf instance. """
-        return (f"-> leaf [value={self.value}] ")
+        return (f"-> leaf [value={self.value}]")
 
     def get_leaves_below(self):
         """ Returns the current Leaf instance in a list. """
