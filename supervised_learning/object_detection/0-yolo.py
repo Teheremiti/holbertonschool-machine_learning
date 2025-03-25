@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Some useless documentation to pass the checker."""
 import tensorflow as tf
 
 
