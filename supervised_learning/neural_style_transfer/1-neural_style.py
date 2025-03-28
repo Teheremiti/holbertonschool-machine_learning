@@ -102,9 +102,12 @@ class NST:
         ]
 
         # Construct the model
-        self.model = tf.keras.Model(inputs=base_model.input, outputs=outputs)
+        model = tf.keras.Model(inputs=base_model.input, outputs=outputs)
+        model.save('vgg_base.h5')
 
         # Replace MaxPooling layers with AveragePooling layers
-        for layer in self.model.layers:
-            if isinstance(layer, tf.keras.layers.MaxPooling2D):
-                layer = tf.keras.layers.AveragePooling2D()
+        custom_objects = {'MaxPooling2D': tf.keras.layers.AveragePooling2D}
+        model = tf.keras.models.load_model('vgg_base.h5',
+                                           custom_objects=custom_objects)
+
+        self.model = model
