@@ -222,8 +222,8 @@ class NST:
         if (not isinstance(style_outputs, list)
                 or len(style_outputs) != expected_length):
             raise TypeError(
-                f"style_outputs must be a list with a length of \
-                {expected_length}"
+                f"style_outputs must be a list with a length of "
+                f"{expected_length}"
             )
 
         layer_weight = 1.0 / expected_length
