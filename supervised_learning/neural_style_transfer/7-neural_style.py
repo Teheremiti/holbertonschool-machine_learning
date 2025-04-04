@@ -283,7 +283,7 @@ class NST:
         preprocessed_image = tf.keras.applications.vgg19.preprocess_input(
             generated_image * 255)
 
-        # Extract features the generated image
+        # Extract features from the generated image
         generated_outputs = self.model(preprocessed_image)
         generated_style_outputs = generated_outputs[:-1]
         generated_content_output = generated_outputs[-1]
