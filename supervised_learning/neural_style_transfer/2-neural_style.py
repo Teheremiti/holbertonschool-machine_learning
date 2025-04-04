@@ -125,7 +125,7 @@ class NST:
         The tf.Tensor of shape (1, c, c) containing the Gram matrix.
         """
         if (not isinstance(input_layer, (tf.Tensor, tf.Variable))
-            or input_layer.shape.rank != 4):
+                or input_layer.shape.rank != 4):
             raise TypeError("input_layer must be a tensor of rank 4")
 
         batch_size, height, width, channels = tf.unstack(tf.shape(input_layer))
