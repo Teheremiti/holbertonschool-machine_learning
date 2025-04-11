@@ -344,11 +344,13 @@ class NST:
             raise TypeError("iterations must be an integer")
         if iterations < 1:
             raise ValueError("iterations must be positive")
-    
-        if step is not None and not isinstance(step, int):
-            raise TypeError("step must be an integer")
-        if step is not None and (step < 0 or step > iterations):
-            raise ValueError("step must be positive and less than iterations")
+
+        if step is not None:
+            if not isinstance(step, int):
+                raise TypeError("step must be an integer")
+            if not 0 <= step <= iterations:
+                raise ValueError(
+                    "step must be positive and less than iterations")
 
         if not isinstance(lr, (float, int)):
             raise TypeError("lr must be a number")
@@ -357,12 +359,12 @@ class NST:
 
         if not isinstance(beta1, float):
             raise TypeError("beta1 must be a float")
-        if beta1 < 0 or beta1 > 1:
+        if not 0 <= beta1 <= 1:
             raise ValueError("beta1 must be in the range [0, 1]")
 
         if not isinstance(beta2, float):
-            raise TypeError("beta1 must be a float")
-        if beta2 < 0 or beta2 > 1:
+            raise TypeError("beta2 must be a float")
+        if not 0 <= beta2 <= 1:
             raise ValueError("beta2 must be in the range [0, 1]")
 
         generated_image = tf.Variable(self.content_image)
