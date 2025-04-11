@@ -341,38 +341,47 @@ class NST:
         The best generated_image and best cost.
         """
         if not isinstance(iterations, int):
-            print("TypeError iterations")
+            exit(1)
             raise TypeError("iterations must be an integer")
         if iterations < 1:
             print("ValueError iterations")
+            exit(2)
             raise ValueError("iterations must be positive")
 
         if step is not None and not isinstance(step, int):
             print("TypeError step")
+            exit(3)
             raise TypeError("step must be an integer")
         if not 0 < step <= iterations:
             print("ValueError step")
+            exit(4)
             raise ValueError("step must be positive and less than iterations")
 
         if not isinstance(lr, (float, int)):
+            exit(5)
             print("TypeError lr")
             raise TypeError("lr must be a number")
         if lr < 0:
+            exit(6)
             print("ValueError lr")
             raise ValueError("lr must be positive")
 
         if not isinstance(beta1, float):
             print("TypeError beta1")
+            exit(7)
             raise TypeError("beta1 must be a float")
         if not 0 <= beta1 <= 1:
             print("ValueError beta1")
+            exit(8)
             raise ValueError("beta1 must be in the range [0, 1]")
 
         if not isinstance(beta2, float):
             print("TypeError beta2")
+            exit(9)
             raise TypeError("beta2 must be a float")
         if not 0 <= beta2 <= 1:
             print("ValueError beta2")
+            exit(10)
             raise ValueError("beta2 must be in the range [0, 1]")
 
         generated_image = tf.Variable(self.content_image)
