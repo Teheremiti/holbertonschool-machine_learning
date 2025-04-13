@@ -5,6 +5,15 @@ determinant = __import__('0-determinant').determinant
 
 
 def minor(matrix):
+    """
+    Calculates the minor matrix of a square matrix.
+
+    Args:
+    matrix (list[]): Matrix whose minor matrix should be calculated.
+
+    Returns:
+    The minor matrix of the input matrix.
+    """
     if not isinstance(matrix, list) or len(matrix) == 0:
         raise TypeError("matrix must be a list of lists")
     for row in matrix:
