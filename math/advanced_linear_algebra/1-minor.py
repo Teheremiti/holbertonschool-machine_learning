@@ -20,17 +20,14 @@ def minor(matrix):
         if not isinstance(row, list):
             raise TypeError("matrix must be a list of lists")
 
-    if len(matrix) != len(matrix[0]):
+    if len(matrix) != len(matrix[0]) or len(matrix[0]) == 0:
         raise ValueError("matrix must be a non-empty square matrix")
-    for row in matrix:
-        if len(row) == 0:
-            raise ValueError("matrix must be a non-empty square matrix")
-
-    if len(matrix) == 1:
-        return [[1]]
 
     size = len(matrix)
     minor_matrix = []
+
+    if len(matrix) == 1:
+        return [[1]]
 
     for i in range(size):
         row_minors = []
