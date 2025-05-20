@@ -12,10 +12,12 @@ def likelihood(x, n, P):
     Args:
     x (int): Number of patients that develop severe side effects.
     n (int): Total number of patients observed.
-    P (np.ndarray): 1D array of hypothetical probabilities of developing severe side effects.
+    P (np.ndarray): 1D array of hypothetical probabilities of developing severe
+    side effects.
 
     Returns:
-    np.ndarray: The 1D array of likelihoods corresponding to each probability in P.
+    np.ndarray: The 1D array of likelihoods corresponding to each probability
+    in P.
     """
     if not isinstance(n, int) or n <= 0:
         raise ValueError("n must be a positive integer")
