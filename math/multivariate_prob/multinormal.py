@@ -25,3 +25,38 @@ class MultiNormal:
         mean, cov = mean_cov(data.T)
         self.mean = mean.T
         self.cov = cov
+
+    def pdf(self, x):
+        """
+        Calculates the PDF at a data point using
+        ```
+        f(x) = (1 / (sqrt((2 * π)^k * det(Σ))))
+               * exp(-0.5 * (x - μ)^T * Σ^(-1) * (x - μ))
+        ```
+
+        Args:
+        x (np.ndarray): Data point of shape (d, 1) whose PDF should be
+        calculated.
+
+        Returns:
+        The value of the PDF.
+        """
+        if not isinstance(x, np.ndarray):
+            raise TypeError("x must be a numpy.ndarray")
+
+        d = self.mean.shape[0]
+        if x.ndim != 2 or x.shape != (d, 1):
+            raise ValueError(f"x must have the shape ({d}, 1)")
+
+        diff = x - self.mean
+        cov_inv = np.linalg.inv(self.cov)
+        exponent = -0.5 * (diff.T @ cov_inv @ diff)
+
+        sign, logdet = np.linalg.slogdet(self.cov)
+        if sign != 1:
+            raise ValueError("Covariance matrix must be positive definite")
+
+        log_coeff = -0.5 * (d * np.log(2 * np.pi) + logdet)
+        log_pdf = log_coeff + exponent
+
+        return float(np.exp(log_pdf))
