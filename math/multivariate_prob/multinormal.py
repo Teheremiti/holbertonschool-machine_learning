@@ -50,13 +50,13 @@ class MultiNormal:
 
         diff = x - self.mean
         cov_inv = np.linalg.inv(self.cov)
-        exponent = -0.5 * (diff.T @ cov_inv @ diff)
+        cov_det = np.linalg.det(self.cov)
 
-        sign, logdet = np.linalg.slogdet(self.cov)
-        if sign != 1:
+        if cov_det <= 0:
             raise ValueError("Covariance matrix must be positive definite")
 
-        log_coeff = -0.5 * (d * np.log(2 * np.pi) + logdet)
-        log_pdf = log_coeff + exponent
+        exponent = -0.5 * (diff.T @ cov_inv @ diff)
+        coeff = 1.0 / np.sqrt(((2 * np.pi) ** d) * cov_det)
+        pdf = coeff * np.exp(exponent)
 
-        return float(np.exp(log_pdf))
+        return float(pdf)
