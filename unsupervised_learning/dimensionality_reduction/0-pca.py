@@ -39,8 +39,9 @@ def pca(X, var=0.95):
     # argmax returns the first index where the condition is True
     n_components = np.argmax(cumulative_var_ratio >= var) + 1
 
-    # Extract principal components, taking one extra to ensure we exceed threshold
-    # This guarantees we maintain at least the requested fraction of variance
+    # Extract principal components, taking one extra to ensure we exceed
+    # threshold. This guarantees we maintain at least the requested fraction
+    # of variance
     W = Vt[:n_components + 1].T
 
     return W
