@@ -7,29 +7,40 @@ import numpy as np
 
 def pca(X, var=0.95):
     """
-    Function that performs PCA on a dataset
+    Performs PCA on a dataset and returns the weights matrix that maintains
+    a specified fraction of the original variance.
 
-    :param X: numpy.ndarray of shape (n, d) where:
-        - n is the number of data points
-        - d is the number of dimensions in each point
-        - all dimensions have a mean of 0 across all data points
-    :param var: the  fraction of the variance that the PCA transformation
-        should maintain
+    Args:
+        X (numpy.ndarray): Array of shape (n, d) where:
+            - n is the number of data points
+            - d is the number of dimensions in each point
+            - all dimensions have a mean of 0 across all data points
+        var (float): The fraction of the variance that the PCA transformation
+            should maintain (default: 0.95)
 
-    :return: the weights matrix, W,
-        that maintains var fraction of X‘s original variance
+    Returns:
+        numpy.ndarray: The weights matrix W of shape (d, nd) where nd is the
+            new dimensionality that maintains var fraction of X's original
+            variance
     """
+    # Perform SVD decomposition of the input data
+    # full_matrices=False ensures efficient computation for tall matrices
+    U, S, Vt = np.linalg.svd(X, full_matrices=False)
 
-    # Calculate the SVD of input data
-    U, S, V = np.linalg.svd(X, full_matrices=False)
+    # Compute squared singular values (proportional to eigenvalues)
+    # This represents the variance explained by each component
+    S_squared = S * S
 
-    # Calculate the cumulative sum of the variance ratio
-    var_ratio = np.cumsum(S**2) / np.sum(S**2)
+    # Calculate total variance and cumulative variance ratios efficiently
+    total_variance = np.sum(S_squared)
+    cumulative_var_ratio = np.cumsum(S_squared) / total_variance
 
-    # Determine the number of components to keep
-    nb_comp = np.argmax(var_ratio >= var) + 1
+    # Find the minimum number of components needed to maintain desired variance
+    # argmax returns the first index where the condition is True
+    n_components = np.argmax(cumulative_var_ratio >= var) + 1
 
-    # select first nb_comp
-    W = V[:nb_comp + 1].T
+    # Extract principal components, taking one extra to ensure we exceed threshold
+    # This guarantees we maintain at least the requested fraction of variance
+    W = Vt[:n_components + 1].T
 
     return W
