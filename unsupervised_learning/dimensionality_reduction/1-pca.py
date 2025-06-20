@@ -15,7 +15,9 @@ def pca(X, ndim):
             data points and d is the number of original dimensions. It is
             assumed that all dimensions have comparable scale, but they do
             not need to be centered; this function centers them internally.
-        ndim (int): Desired number of dimensions for the transformed data.
+        ndim (int): Desired number of dimensions for the transformed data. If
+            ``ndim`` exceeds the original feature count, all available
+            components are returned.
 
     Returns:
         numpy.ndarray: Transformed data `T` of shape (n, ndim).
@@ -38,8 +40,8 @@ def pca(X, ndim):
     # X_centered = U * S * Vt, where rows of Vt are principal directions
     _, _, Vt = np.linalg.svd(X_centered, full_matrices=False)
 
-    if ndim > Vt.shape[0]:
-        raise ValueError("ndim cannot be greater than the number of features")
+    # Use as many components as possible if requested ndim exceeds available
+    ndim = min(ndim, Vt.shape[0])
 
     # Project the data onto the first `ndim` principal components
     # Vt[:ndim] has shape (ndim, d); its transpose is (d, ndim)
