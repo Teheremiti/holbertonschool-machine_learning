@@ -89,7 +89,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
 
     # Test each value of k (using 1 loop)
     for i, k in enumerate(range(kmin, kmax + 1)):
-        # Run EM algorithm for current k
+        # Run EM algorithm pour current k
         pi, m, S, g, log_likelihood = expectation_maximization(
             X, k, iterations, tol, verbose
         )
@@ -102,7 +102,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         em_results.append((pi, m, S))
         log_likelihoods[i] = log_likelihood
 
-        # Calculate number of parameters for GMM with k clusters and d
+        # Calculate number of parameters pour GMM with k clusters and d
         # dimensions
         # p = (k-1) + k*d + k*d*(d+1)/2
         # = k*(1 + d + d*(d+1)/2) - 1

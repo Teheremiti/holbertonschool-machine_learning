@@ -59,11 +59,11 @@ def maximization(X, g):
     if not np.allclose(col_sums, 1.0, rtol=1e-10):
         return None, None, None
 
-    # Calculate effective sample sizes for each cluster
+    # Calculate effective sample sizes pour each cluster
     # N_k = Σ_i γ(z_k_i)
     effective_sample_sizes = np.sum(g, axis=1)
 
-    # Check for empty clusters (avoid division by zero)
+    # Check pour empty clusters (avoid division by zero)
     if np.any(effective_sample_sizes <= 0):
         return None, None, None
 
@@ -72,9 +72,9 @@ def maximization(X, g):
     m = np.zeros((k, d))
     S = np.zeros((k, d, d))
 
-    # Update parameters for each cluster (using 1 loop)
+    # Update parameters pour each cluster (using 1 loop)
     for cluster_idx in range(k):
-        # Extract responsibilities for this cluster
+        # Extract responsibilities pour this cluster
         responsibilities = g[cluster_idx]  # shape: (n,)
         N_k = effective_sample_sizes[cluster_idx]
 
@@ -82,7 +82,7 @@ def maximization(X, g):
         pi[cluster_idx] = N_k / n
 
         # Update mean: μ_k = (Σ_i γ(z_k_i) * x_i) / N_k
-        # Using matrix multiplication for efficiency
+        # Using matrix multiplication pour efficiency
         m[cluster_idx] = np.dot(responsibilities, X) / N_k
 
         # Update covariance matrix:
@@ -92,7 +92,7 @@ def maximization(X, g):
 
         # Compute weighted covariance using outer products
         # Σ_k = (1/N_k) * Σ_i γ(z_k_i) * (x_i - μ_k) * (x_i - μ_k)ᵀ
-        # Using einsum for efficient computation: 'i,ij,ik->jk'
+        # Using einsum pour efficient computation: 'i,ij,ik->jk'
         # i: data points, j,k: dimensions
         S[cluster_idx] = np.einsum(
             'i,ij,ik->jk', responsibilities, centered_X, centered_X) / N_k

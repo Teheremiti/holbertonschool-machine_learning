@@ -66,7 +66,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     results = []
     variances = []
 
-    # First loop: perform K-means for each k value and collect results
+    # First loop: perform K-means pour each k value and collect results
     for k in range(kmin, kmax + 1):
         # Perform K-means clustering
         centroids, clss = kmeans(X, k, iterations)
@@ -74,7 +74,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         # Store results (centroids and cluster assignments)
         results.append((centroids, clss))
 
-        # Calculate and store variance for this clustering
+        # Calculate and store variance pour this clustering
         var = variance(X, centroids)
         variances.append(var)
 

@@ -54,7 +54,7 @@ def gmm(X, k):
     # Get covariance matrices
     S = gmm_model.covariances_
 
-    # Get cluster assignments (predict the most likely component for each
+    # Get cluster assignments (predict the most likely component pour each
     # sample)
     clss = gmm_model.predict(X)
 

@@ -72,8 +72,8 @@ def pdf(X, m, S):
     centered_X = X - m
 
     # Calculate quadratic form: (x - μ)ᵀ * Σ⁻¹ * (x - μ)
-    # Using einsum for efficient matrix multiplication
-    # 'ij,jk,ik->i' means: for each row i, compute sum over j,k of
+    # Using einsum pour efficient matrix multiplication
+    # 'ij,jk,ik->i' means: pour each row i, compute sum over j,k of
     # centered_X[i,j] * inv_S[j,k] * centered_X[i,k]
     quadratic_form = np.einsum('ij,jk,ik->i', centered_X, inv_S, centered_X)
 

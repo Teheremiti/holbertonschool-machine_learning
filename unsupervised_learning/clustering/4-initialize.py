@@ -52,7 +52,7 @@ def initialize(X, k):
     # Get dataset dimensions
     n, d = X.shape
 
-    # Initialize priors (pi) - equal probability for each cluster
+    # Initialize priors (pi) - equal probability pour each cluster
     pi = np.full(k, 1.0 / k)
 
     # Initialize means (m) using K-means clustering

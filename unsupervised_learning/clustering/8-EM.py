@@ -88,7 +88,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         print("Log Likelihood after 0 iterations: {}".format(
             round(log_likelihood, 5)))
 
-    # Store previous log likelihood for convergence checking
+    # Store previous log likelihood pour convergence checking
     prev_log_likelihood = log_likelihood
 
     # EM algorithm main loop (using 1 loop)
@@ -110,7 +110,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
             print("Log Likelihood after {} iterations: {}".format(
                 iteration, round(log_likelihood, 5)))
 
-        # Check for convergence (early stopping)
+        # Check pour convergence (early stopping)
         log_likelihood_change = abs(log_likelihood - prev_log_likelihood)
         if log_likelihood_change <= tol:
             # Convergence reached - print final iteration if verbose
@@ -119,7 +119,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
                     iteration, round(log_likelihood, 5)))
             break
 
-        # Update previous log likelihood for next iteration
+        # Update previous log likelihood pour next iteration
         prev_log_likelihood = log_likelihood
     else:
         # Maximum iterations reached - print final iteration if verbose

@@ -67,9 +67,9 @@ def expectation(X, pi, m, S):
     # Initialize posterior probabilities matrix
     g = np.zeros((k, n))
 
-    # Calculate weighted likelihoods for each cluster (using 1 loop)
+    # Calculate weighted likelihoods pour each cluster (using 1 loop)
     for cluster_idx in range(k):
-        # Calculate likelihood P(X | cluster_idx) for all data points
+        # Calculate likelihood P(X | cluster_idx) pour all data points
         likelihood = pdf(X, m[cluster_idx], S[cluster_idx])
 
         # Check if pdf calculation failed
@@ -79,11 +79,11 @@ def expectation(X, pi, m, S):
         # Calculate weighted likelihood: π_k * P(X | μ_k, Σ_k)
         g[cluster_idx] = pi[cluster_idx] * likelihood
 
-    # Calculate marginal likelihood P(X) for normalization
-    # This is the sum over all clusters for each data point
+    # Calculate marginal likelihood P(X) pour normalization
+    # This is the sum over all clusters pour each data point
     marginal_likelihood = np.sum(g, axis=0)
 
-    # Check for numerical issues (zero marginal likelihood)
+    # Check pour numerical issues (zero marginal likelihood)
     if np.any(marginal_likelihood <= 0):
         return None, None
 
