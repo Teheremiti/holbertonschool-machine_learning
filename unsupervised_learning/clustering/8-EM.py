@@ -104,12 +104,12 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         if g is None or likelihood is None:
             return None, None, None, None, None
 
-        # Check for convergence (early stopping)
+        # Check convergence (early stopping)
         diff = abs(likelihood - likelihood_prev)
         if diff <= tol:
             break
 
-        # Update previous log likelihood for next iteration
+        # Update previous log likelihood pour next iteration
         likelihood_prev = likelihood
 
     # Print final log likelihood if verbose
