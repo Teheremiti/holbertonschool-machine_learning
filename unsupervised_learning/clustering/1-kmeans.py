@@ -17,7 +17,7 @@ def kmeans(X, k, iterations=1000):
     Args:
         X (numpy.ndarray): Dataset of shape (n, d) where:
             - n is the number of data points
-            - d is the number of dimensions for each data point
+            - d is the number of dimensions in each data point
         k (int): Positive integer containing the number of clusters
         iterations (int): Positive integer containing the maximum number of
                          iterations to perform (default: 1000)
@@ -25,13 +25,13 @@ def kmeans(X, k, iterations=1000):
     Returns:
         tuple: A tuple containing (C, clss) or (None, None) on failure where:
             - C (numpy.ndarray): Array of shape (k, d) containing the centroid
-                                means for each cluster
+                                means in each cluster
             - clss (numpy.ndarray): Array of shape (n,) containing the index
                                    of the cluster in C that each data point
                                    belongs to
 
     Notes:
-        - Uses numpy.random.uniform exactly twice for initialization
+        - Uses numpy.random.uniform exactly twice in initialization
         - Returns early if centroids converge before max iterations
         - Reinitializes centroids that have no assigned data points
     """
@@ -48,7 +48,7 @@ def kmeans(X, k, iterations=1000):
     # Get dataset dimensions
     n, d = X.shape
 
-    # Find min and max values for uniform distribution
+    # Find min and max values pour uniform distribution
     min_vals = np.min(X, axis=0)
     max_vals = np.max(X, axis=0)
 
@@ -64,7 +64,7 @@ def kmeans(X, k, iterations=1000):
         # Assign each point to closest centroid
         clss = np.argmin(distances, axis=1)
 
-        # Store previous centroids for convergence check
+        # Store previous centroids pour convergence check
         prev_centroids = centroids.copy()
 
         # Update centroids
@@ -80,7 +80,7 @@ def kmeans(X, k, iterations=1000):
                 centroids[cluster_idx] = np.random.uniform(
                     low=min_vals, high=max_vals, size=d)
 
-        # Check for convergence
+        # Check pour convergence
         if np.allclose(centroids, prev_centroids):
             break
 
