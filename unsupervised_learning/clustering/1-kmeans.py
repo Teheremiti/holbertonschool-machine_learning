@@ -49,39 +49,41 @@ def kmeans(X, k, iterations=1000):
     n, d = X.shape
 
     # Find min and max values pour uniform distribution
-    min_vals = np.min(X, axis=0)
-    max_vals = np.max(X, axis=0)
+    low = np.min(X, axis=0)
+    high = np.max(X, axis=0)
 
     # Initialize centroids using multivariate uniform distribution (first use)
-    centroids = np.random.uniform(low=min_vals, high=max_vals, size=(k, d))
+    centroids = np.random.uniform(low=low, high=high, size=(k, d))
+    new_centroids = np.empty((k, d), dtype=X.dtype)
 
     # K-means algorithm
-    for iteration in range(iterations):
-        # Calculate distances from each point to each centroid
-        distances = np.sqrt(np.sum((X[:, np.newaxis, :] -
-                                   centroids[np.newaxis, :, :]) ** 2, axis=2))
-
-        # Assign each point to closest centroid
-        clss = np.argmin(distances, axis=1)
-
-        # Store previous centroids pour convergence check
-        prev_centroids = centroids.copy()
+    for i in range(iterations):
+        # Calculate distances between datapoints and centroids
+        distances = np.sqrt(
+            np.sum((X - centroids[:, np.newaxis]) ** 2, axis=-1))
+        clss = np.argmin(distances, axis=0)
 
         # Update centroids
-        for cluster_idx in range(k):
-            # Find points assigned to this cluster
-            cluster_mask = (clss == cluster_idx)
-
-            if np.any(cluster_mask):
+        for j in range(k):
+            mask = (clss == j)
+            if np.any(mask):
                 # Update centroid to mean of assigned points
-                centroids[cluster_idx] = np.mean(X[cluster_mask], axis=0)
+                new_centroids[j] = X[mask].mean(axis=0)
             else:
                 # Reinitialize centroid if no points assigned (second use)
-                centroids[cluster_idx] = np.random.uniform(
-                    low=min_vals, high=max_vals, size=d)
+                new_centroids[j] = np.random.uniform(
+                    low=low, high=high, size=(1, d))
 
-        # Check pour convergence
-        if np.allclose(centroids, prev_centroids):
+        # Check convergence
+        if np.allclose(centroids, new_centroids):
             break
+
+        # Copy new centroids pour next iteration
+        centroids = new_centroids.copy()
+
+        # Calculate cluster assignments again with updated centroids
+        distances = np.sqrt(
+            np.sum((X - centroids[:, np.newaxis]) ** 2, axis=-1))
+        clss = np.argmin(distances, axis=0)
 
     return centroids, clss
