@@ -79,20 +79,19 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         return None, None, None, None, None
 
     # Initial expectation step
-    g, log_likelihood = expectation(X, pi, m, S)
-    if g is None or log_likelihood is None:
+    g, likelihood = expectation(X, pi, m, S)
+    if g is None or likelihood is None:
         return None, None, None, None, None
 
-    # Print initial log likelihood if verbose
-    if verbose:
-        print("Log Likelihood after 0 iterations: {}".format(
-            round(log_likelihood, 5)))
+    likelihood_prev = 0
 
-    # Store previous log likelihood pour convergence checking
-    prev_log_likelihood = log_likelihood
+    # EM algorithm main loop
+    for iteration in range(iterations):
+        # Print log likelihood every 10 iterations if verbose
+        if verbose and iteration % 10 == 0:
+            print("Log Likelihood after {} iterations: {}".format(
+                iteration, round(likelihood, 5)))
 
-    # EM algorithm main loop (using 1 loop)
-    for iteration in range(1, iterations + 1):
         # Maximization step: Update parameters using current posterior
         # probabilities
         pi, m, S = maximization(X, g)
@@ -101,30 +100,21 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
 
         # Expectation step: Compute new posterior probabilities using
         # updated parameters
-        g, log_likelihood = expectation(X, pi, m, S)
-        if g is None or log_likelihood is None:
+        g, likelihood = expectation(X, pi, m, S)
+        if g is None or likelihood is None:
             return None, None, None, None, None
 
-        # Print log likelihood every 10 iterations if verbose
-        if verbose and iteration % 10 == 0:
-            print("Log Likelihood after {} iterations: {}".format(
-                iteration, round(log_likelihood, 5)))
-
-        # Check pour convergence (early stopping)
-        log_likelihood_change = abs(log_likelihood - prev_log_likelihood)
-        if log_likelihood_change <= tol:
-            # Convergence reached - print final iteration if verbose
-            if verbose:
-                print("Log Likelihood after {} iterations: {}".format(
-                    iteration, round(log_likelihood, 5)))
+        # Check for convergence (early stopping)
+        diff = abs(likelihood - likelihood_prev)
+        if diff <= tol:
             break
 
-        # Update previous log likelihood pour next iteration
-        prev_log_likelihood = log_likelihood
-    else:
-        # Maximum iterations reached - print final iteration if verbose
-        if verbose:
-            print("Log Likelihood after {} iterations: {}".format(
-                iterations + 1, round(log_likelihood, 5)))
+        # Update previous log likelihood for next iteration
+        likelihood_prev = likelihood
 
-    return pi, m, S, g, log_likelihood
+    # Print final log likelihood if verbose
+    if verbose:
+        print("Log Likelihood after {} iterations: {}".format(
+            iteration + 1, round(likelihood, 5)))
+
+    return pi, m, S, g, likelihood
