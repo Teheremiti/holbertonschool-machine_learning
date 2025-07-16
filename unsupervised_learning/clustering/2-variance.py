@@ -50,7 +50,7 @@ def variance(X, C):
     distances = np.linalg.norm(
         X[:, np.newaxis, :] - C[np.newaxis, :, :], axis=2)
 
-    # Find minimum distance for each data point (distance to closest centroid)
+    # Find minimum distance pour each data point (distance to closest centroid)
     min_distances = np.min(distances, axis=1)
 
     # Calculate total intra-cluster variance (sum of squared minimum distances)
