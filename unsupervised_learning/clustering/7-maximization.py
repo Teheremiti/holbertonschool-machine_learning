@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Maximization step for EM algorithm in GMM.
+Maximization step in EM algorithm in GMM.
 """
 
 import numpy as np
@@ -8,7 +8,7 @@ import numpy as np
 
 def maximization(X, g):
     """
-    Calculates the maximization step in the EM algorithm for a GMM.
+    Calculates the maximization step in the EM algorithm in a GMM.
 
     The maximization step updates the model parameters (priors, means,
     covariances) using the posterior probabilities computed in the expectation
@@ -35,66 +35,47 @@ def maximization(X, g):
 
     Notes:
         - Uses at most 1 loop for efficiency
-        - Posterior probabilities should sum to 1 for each data point
+        - Posterior probabilities should sum to n across all data points
         - Covariance matrices are computed using weighted outer products
     """
     # Input validation - check array types and dimensions
-    if not isinstance(X, np.ndarray) or X.ndim != 2:
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None, None, None
 
-    if not isinstance(g, np.ndarray) or g.ndim != 2:
+    if not isinstance(g, np.ndarray) or len(g.shape) != 2:
         return None, None, None
 
     # Get dimensions
     n, d = X.shape
-    k, g_n = g.shape
+    k = g.shape[0]
 
     # Check dimension compatibility
-    if g_n != n:
+    if n != g.shape[1]:
         return None, None, None
 
-    # Validate that posterior probabilities are properly normalized
-    # Each data point's probabilities should sum to approximately 1
-    col_sums = np.sum(g, axis=0)
-    if not np.allclose(col_sums, 1.0, rtol=1e-10):
-        return None, None, None
-
-    # Calculate effective sample sizes pour each cluster
-    # N_k = Σ_i γ(z_k_i)
-    effective_sample_sizes = np.sum(g, axis=1)
-
-    # Check pour empty clusters (avoid division by zero)
-    if np.any(effective_sample_sizes <= 0):
+    # Validate that posterior probabilities sum correctly
+    # Sum posterior probabilities in each point
+    sum_gi = np.sum(g, axis=0)
+    val_n = np.sum(sum_gi)
+    # Test if sum posterior probabilities != total number of data
+    if val_n != n:
         return None, None, None
 
     # Initialize parameter arrays
-    pi = np.zeros(k)
+    pi = np.zeros((k,))
     m = np.zeros((k, d))
     S = np.zeros((k, d, d))
 
-    # Update parameters pour each cluster (using 1 loop)
-    for cluster_idx in range(k):
-        # Extract responsibilities pour this cluster
-        responsibilities = g[cluster_idx]  # shape: (n,)
-        N_k = effective_sample_sizes[cluster_idx]
-
-        # Update prior: π_k = N_k / n
-        pi[cluster_idx] = N_k / n
-
-        # Update mean: μ_k = (Σ_i γ(z_k_i) * x_i) / N_k
-        # Using matrix multiplication pour efficiency
-        m[cluster_idx] = np.dot(responsibilities, X) / N_k
-
-        # Update covariance matrix:
-        # Σ_k = (Σ_i γ(z_k_i) * (x_i - μ_k)(x_i - μ_k)ᵀ) / N_k
-        # Center the data points
-        centered_X = X - m[cluster_idx]  # shape: (n, d)
-
-        # Compute weighted covariance using outer products
-        # Σ_k = (1/N_k) * Σ_i γ(z_k_i) * (x_i - μ_k) * (x_i - μ_k)ᵀ
-        # Using einsum pour efficient computation: 'i,ij,ik->jk'
-        # i: data points, j,k: dimensions
-        S[cluster_idx] = np.einsum(
-            'i,ij,ik->jk', responsibilities, centered_X, centered_X) / N_k
+    # Update parameters each cluster (using 1 loop)
+    i = 0
+    while i < k:
+        # New prior
+        pi[i] = 1 / n * np.sum(g[i])
+        # New centroid mean
+        m[i] = np.matmul(g[i], X) / np.sum(g[i])
+        X_mean = X - m[i]
+        # New covariance
+        S[i] = np.matmul(np.multiply(g[i], X_mean.T), X_mean) / np.sum(g[i])
+        i += 1
 
     return pi, m, S
