@@ -58,10 +58,6 @@ def kmeans(X, k, iterations=1000):
     # K-means algorithm
     for iteration in range(iterations):
         # Calculate distances from each point to each centroid
-        # Broadcasting: X.shape = (n, d), centroids.shape = (k, d)
-        # X[:, np.newaxis, :] creates shape (n, 1, d)
-        # centroids[np.newaxis, :, :] creates shape (1, k, d)
-        # Result has shape (n, k) - distance from each point to each centroid
         distances = np.sqrt(np.sum((X[:, np.newaxis, :] -
                                    centroids[np.newaxis, :, :]) ** 2, axis=2))
 
@@ -87,10 +83,5 @@ def kmeans(X, k, iterations=1000):
         # Check for convergence
         if np.allclose(centroids, prev_centroids):
             break
-
-    # Final cluster assignment with converged centroids
-    distances = np.sqrt(np.sum((X[:, np.newaxis, :] -
-                               centroids[np.newaxis, :, :]) ** 2, axis=2))
-    clss = np.argmin(distances, axis=1)
 
     return centroids, clss
