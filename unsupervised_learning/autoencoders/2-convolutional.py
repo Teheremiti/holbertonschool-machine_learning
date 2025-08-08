@@ -30,7 +30,9 @@ def autoencoder(input_dims, filters, latent_dims):
                                 activation='relu')(x)
         x = keras.layers.MaxPooling2D(pool_size=(2, 2),
                                       padding='same')(x)
-    encoder = keras.Model(inputs=input_encoder, outputs=x, name="encoder")
+    encoder = keras.Model(inputs=input_encoder,
+                          outputs=x,
+                          name="encoder")
 
     # DECODER
     input_decoder = keras.Input(shape=latent_dims)
@@ -42,13 +44,22 @@ def autoencoder(input_dims, filters, latent_dims):
                                 activation='relu')(x)
         x = keras.layers.UpSampling2D(size=(2, 2))(x)
 
-    # Final conv to reduce to original channel count
+    # Critical fix: use VALID padding here
+    x = keras.layers.Conv2D(filters=filters[0],
+                            kernel_size=(3, 3),
+                            padding='valid',
+                            activation='relu')(x)
+    x = keras.layers.UpSampling2D(size=(2, 2))(x)
+
+    # Final layer: same number of channels as input
     x = keras.layers.Conv2D(filters=input_dims[-1],
                             kernel_size=(3, 3),
                             padding='same',
                             activation='sigmoid')(x)
 
-    decoder = keras.Model(inputs=input_decoder, outputs=x, name="decoder")
+    decoder = keras.Model(inputs=input_decoder,
+                          outputs=x,
+                          name="decoder")
 
     # AUTOENCODER
     input_auto = keras.Input(shape=input_dims)
@@ -57,7 +68,7 @@ def autoencoder(input_dims, filters, latent_dims):
     auto = keras.Model(inputs=input_auto,
                        outputs=decoded,
                        name="conv_autoencoder")
-
-    auto.compile(optimizer='adam', loss='binary_crossentropy')
+    auto.compile(optimizer='adam',
+                 loss='binary_crossentropy')
 
     return encoder, decoder, auto
