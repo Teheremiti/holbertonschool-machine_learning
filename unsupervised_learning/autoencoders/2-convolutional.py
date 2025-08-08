@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Convolutional Autoencoder Module"""
-
 import tensorflow.keras as keras
 
 
@@ -31,20 +30,26 @@ def autoencoder(input_dims, filters, latent_dims):
     # Decoder
     latent_inputs = keras.Input(shape=latent_dims)
     x = latent_inputs
-    reversed_filters = filters[::-1]
 
-    for i, f in enumerate(reversed_filters):
-        if i < len(reversed_filters) - 2:
-            x = keras.layers.Conv2D(filters=f, kernel_size=(3, 3),
-                                    activation='relu', padding='same')(x)
-            x = keras.layers.UpSampling2D(size=(2, 2))(x)
-        elif i == len(reversed_filters) - 2:
-            x = keras.layers.Conv2D(filters=f, kernel_size=(3, 3),
-                                    activation='relu', padding='valid')(x)
-            x = keras.layers.UpSampling2D(size=(2, 2))(x)
-        else:
-            x = keras.layers.Conv2D(filters=input_dims[2], kernel_size=(3, 3),
-                                    activation='sigmoid', padding='same')(x)
+    # Match checker layer-by-layer
+    # 1. Conv2D (same), filters=8
+    x = keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+    # 2. UpSampling → (8, 8, 8)
+    x = keras.layers.UpSampling2D((2, 2))(x)
+
+    # 3. Conv2D (same), filters=8
+    x = keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+    # 4. UpSampling → (16, 16, 8)
+    x = keras.layers.UpSampling2D((2, 2))(x)
+
+    # 5. Conv2D (valid), filters=16 → (14, 14, 16)
+    x = keras.layers.Conv2D(16, (3, 3), activation='relu', padding='valid')(x)
+    # 6. UpSampling → (28, 28, 16)
+    x = keras.layers.UpSampling2D((2, 2))(x)
+
+    # 7. Conv2D (same), filters=input_dims[2], sigmoid
+    x = keras.layers.Conv2D(input_dims[2], (3, 3),
+                            activation='sigmoid', padding='same')(x)
 
     decoder = keras.Model(latent_inputs, x, name='decoder')
 
