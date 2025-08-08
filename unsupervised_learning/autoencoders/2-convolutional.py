@@ -35,32 +35,29 @@ def autoencoder(input_dims, filters, latent_dims):
     # DECODER
     input_decoder = keras.Input(shape=latent_dims)
     x = input_decoder
-    for i, f in enumerate(filters[::-1]):
-        if i < len(filters) - 2:
-            x = keras.layers.Conv2D(filters=f,
-                                    kernel_size=(3, 3),
-                                    padding='same',
-                                    activation='relu')(x)
-            x = keras.layers.UpSampling2D(size=(2, 2))(x)
-        elif i == len(filters) - 2:
-            x = keras.layers.Conv2D(filters=f,
-                                    kernel_size=(3, 3),
-                                    padding='valid',
-                                    activation='relu')(x)
-            x = keras.layers.UpSampling2D(size=(2, 2))(x)
-        else:
-            x = keras.layers.Conv2D(filters=input_dims[-1],
-                                    kernel_size=(3, 3),
-                                    padding='same',
-                                    activation='sigmoid')(x)
+    for f in filters[::-1]:
+        x = keras.layers.Conv2D(filters=f,
+                                kernel_size=(3, 3),
+                                padding='same',
+                                activation='relu')(x)
+        x = keras.layers.UpSampling2D(size=(2, 2))(x)
+
+    # Final conv to reduce to original channel count
+    x = keras.layers.Conv2D(filters=input_dims[-1],
+                            kernel_size=(3, 3),
+                            padding='same',
+                            activation='sigmoid')(x)
+
     decoder = keras.Model(inputs=input_decoder, outputs=x, name="decoder")
 
     # AUTOENCODER
     input_auto = keras.Input(shape=input_dims)
     encoded = encoder(input_auto)
     decoded = decoder(encoded)
-    auto = keras.Model(inputs=input_auto, outputs=decoded,
+    auto = keras.Model(inputs=input_auto,
+                       outputs=decoded,
                        name="conv_autoencoder")
+
     auto.compile(optimizer='adam', loss='binary_crossentropy')
 
     return encoder, decoder, auto
