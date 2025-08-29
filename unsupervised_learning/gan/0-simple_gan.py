@@ -29,11 +29,12 @@ class Simple_GAN(keras.Model):
         Args:
             generator (keras.Model): The generator model.
             discriminator (keras.Model): The discriminator model.
-            latent_generator (Callable): Function to generate latent vectors (noise).
+            latent_generator (Callable): Function to generate latent vectors.
             real_examples (tf.Tensor): Dataset of real samples for training.
-            batch_size (int, optional): Number of samples per batch. Defaults to 200.
-            disc_iter (int, optional): Number of discriminator updates per step. Defaults to 2.
-            learning_rate (float, optional): Optimizer learning rate. Defaults to 0.005.
+            batch_size (int, optional): Number of samples per batch.
+            disc_iter (int, optional): Number of discriminator updates
+            per step.
+            learning_rate (float, optional): Optimizer learning rate.
         """
         super().__init__()
 
@@ -65,7 +66,8 @@ class Simple_GAN(keras.Model):
 
         # Discriminator loss and optimizer
         self.discriminator.loss = (
-            lambda x, y: tf.keras.losses.MeanSquaredError()(x, tf.ones(x.shape))
+            lambda x, y: tf.keras.losses.MeanSquaredError()
+            (x, tf.ones(x.shape))
             + tf.keras.losses.MeanSquaredError()(y, -1 * tf.ones(y.shape))
         )
         self.discriminator.optimizer = keras.optimizers.Adam(
@@ -83,9 +85,9 @@ class Simple_GAN(keras.Model):
         Generate a batch of fake samples using the generator.
 
         Args:
-            size (int, optional): Number of fake samples. Defaults to batch size.
-            training (bool, optional): Whether the generator is in training mode.
-                Defaults to False.
+            size (int, optional): Number of fake samples.
+            training (bool, optional): Whether the generator is
+            in training mode.
 
         Returns:
             tf.Tensor: A batch of generated (fake) samples.
@@ -99,10 +101,11 @@ class Simple_GAN(keras.Model):
         Sample a batch of real examples from the dataset.
 
         Args:
-            size (int, optional): Number of real samples. Defaults to batch size.
+            size (int, optional): Number of real samples.
 
         Returns:
-            tf.Tensor: A batch of real samples randomly selected from the dataset.
+            tf.Tensor: A batch of real samples randomly selected
+            from the dataset.
         """
         if size is None:
             size = self.batch_size
