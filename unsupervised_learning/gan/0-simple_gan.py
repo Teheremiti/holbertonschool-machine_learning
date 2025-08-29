@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class SimpleGAN(keras.Model):
+class Simple_GAN(keras.Model):
     """
     A simple Generative Adversarial Network (GAN) implementation.
 
