@@ -54,7 +54,7 @@ class WGANClip(keras.Model):
         self.beta_2 = 0.9
 
         # Define generator loss and optimizer
-        self.generator.loss = lambda fake_output: -tf.reduce_mean(fake_output)
+        self.generator.loss = lambda fake_output: tf.reduce_mean(-fake_output)
         self.generator.optimizer = keras.optimizers.Adam(
             learning_rate=self.learning_rate,
             beta_1=self.beta_1,
@@ -68,7 +68,7 @@ class WGANClip(keras.Model):
         # Define discriminator loss and optimizer
         self.discriminator.loss = (
             lambda real_output, fake_output:
-            tf.reduce_mean(fake_output) - tf.reduce_mean(real_output)
+            tf.reduce_mean(fake_output - real_output)
         )
         self.discriminator.optimizer = keras.optimizers.Adam(
             learning_rate=self.learning_rate,
