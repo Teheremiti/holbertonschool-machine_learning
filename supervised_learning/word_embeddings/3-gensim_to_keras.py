@@ -2,8 +2,6 @@
 """
     Extract Word2Vec
 """
-from gensim.models import Word2Vec
-from keras.layers import Embedding
 
 
 def gensim_to_keras(model):
