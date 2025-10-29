@@ -7,38 +7,37 @@ import gensim
 Word2Vec = gensim.models.Word2Vec
 
 
-def word2vec_model(sentences, vector_size=100, min_count=5, window=5,
-                   negative=5, cbow=True, epochs=5, seed=0, workers=1):
+def word2vec_model(sentences, size=100, min_count=5, window=5,
+                   negative=5, cbow=True, iterations=5, seed=0, workers=1):
     """
-    Creates and trains a gensim word2vec model.
+        creates and trains a gensim word2vec model
 
-    Args:
-        sentences: List of sentences to be trained on.
-        vector_size: Dimensionality of the embedding layer.
-        min_count: Minimum number of occurrences of a word for use in training.
-        window: Maximum distance between the current and predicted word within
-            a sentence.
-        negative: Size of negative sampling.
-        cbow: Boolean to determine training type. True is for CBOW,
-            False is for Skip-gram.
-        epochs: Number of iterations to train over.
-        seed: Seed for the random number generator.
-        workers: Number of worker threads to train the model.
+    :param sentences: list of sentences to be trained on
+    :param size: dimensionality of the embedding layer
+    :param min_count: minimum number of occurrences of a word
+        for use in training
+    :param window: maximum distance between the current and predicted
+    word within a sentence
+    :param negative: size of negative sampling
+    :param cbow: boolean to determine training type: True=CBOW, False=Skip-gram
+    :param iterations: number of iterations to train over
+    :param seed: seed for the random number generator
+    :param workers: number of worker threads to train the model
 
-    Returns:
-        The trained model.
+    :return: trained model
     """
-    # Set sg parameter: 0 for CBOW, 1 for Skip-gram
-    # sg = 0 if cbow else 1
-
+    if cbow is True:
+        sg = 0
+    else:
+        sg = 1
     model = Word2Vec(sentences=sentences,
-                     vector_size=vector_size,
+                     size=size,
                      window=window,
                      min_count=min_count,
                      negative=negative,
                      seed=seed,
                      workers=workers,
-                     epochs=epochs,
+                     iter=iterations,
                      sg=cbow)
 
     return model
