@@ -36,7 +36,12 @@ def fasttext_model(sentences, vector_size=100, min_count=5, negative=5,
                                    window=window,
                                    min_count=min_count,
                                    seed=seed,
-                                   workers=workers,
-                                   epochs=epochs)
+                                   workers=workers)
+
+    # Build the vocabulary
+    model.build_vocab(sentences)
+
+    # Train the model
+    model.train(sentences, total_examples=model.corpus_count, epochs=epochs)
 
     return model
