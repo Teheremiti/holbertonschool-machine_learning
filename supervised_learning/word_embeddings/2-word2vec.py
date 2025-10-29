@@ -29,7 +29,7 @@ def word2vec_model(sentences, vector_size=100, min_count=5, window=5,
         The trained model.
     """
     # Set sg parameter: 0 for CBOW, 1 for Skip-gram
-    sg = 0 if cbow else 1
+    # sg = 0 if cbow else 1
 
     model = Word2Vec(sentences=sentences,
                      vector_size=vector_size,
@@ -39,6 +39,6 @@ def word2vec_model(sentences, vector_size=100, min_count=5, window=5,
                      seed=seed,
                      workers=workers,
                      epochs=epochs,
-                     sg=sg)
+                     sg=cbow)
 
     return model
