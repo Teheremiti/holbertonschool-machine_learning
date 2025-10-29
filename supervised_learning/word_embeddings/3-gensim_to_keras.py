@@ -21,5 +21,5 @@ def gensim_to_keras(model):
         input_dim=weights.shape[0],
         output_dim=weights.shape[1],
         weights=[weights],
-        trainable=False
+        trainable=True
     )
