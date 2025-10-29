@@ -43,7 +43,7 @@ def bag_of_words(sentences, vocab=None):
 
     # construct incorporation matrix
     embeddings = np.zeros((len(sentences), len(vocab)), dtype=int)
-    features = vocab
+    features = np.array(vocab)
 
     for i, sentence in enumerate(sentences):
         words = re.findall(r'\w+', sentence.lower())
