@@ -2,6 +2,7 @@
 """
     Extract Word2Vec
 """
+import tensorflow as tf
 
 
 def gensim_to_keras(model):
@@ -14,4 +15,9 @@ def gensim_to_keras(model):
     Returns:
         trainable keras Embedding layer.
     """
-    return model.wv.get_keras_embedding(train_embeddings=True)
+    return tf.keras.layers.Embedding(
+        input_dim=model.wv.vectors.shape[0],
+        output_dim=model.wv.vectors.shape[1],
+        weights=[model.wv.vectors],
+        trainable=False
+    )
