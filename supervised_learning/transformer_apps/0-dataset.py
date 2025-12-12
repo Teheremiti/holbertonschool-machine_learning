@@ -24,7 +24,7 @@ class Dataset:
         """Initializes the Dataset by loading data and creating tokenizers.
 
         Loads the TED HRLR Portuguese to English translation dataset and
-        builds subword tokenizers for both languages from the training data.
+        builds subword tokenizers for both languages using the training data.
         """
         self.data_train, self.data_valid = tfds.load(
             'ted_hrlr_translate/pt_to_en',
