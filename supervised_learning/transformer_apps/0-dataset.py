@@ -50,12 +50,12 @@ class Dataset:
         Returns:
             tuple: A tuple containing:
                 - tokenizer_pt: SubwordTextEncoder for Portuguese with
-                    target vocabulary size of 2^15.
+                    target vocabulary size of 2^13.
                 - tokenizer_en: SubwordTextEncoder for English with
-                    target vocabulary size of 2^15.
+                    target vocabulary size of 2^13.
         """
         tokenizer_pt = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
-            (pt.numpy() for pt, _ in data), target_vocab_size=2 ** 15)
+            (pt.numpy() for pt, _ in data), target_vocab_size=2 ** 13)
         tokenizer_en = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
-            (en.numpy() for _, en in data), target_vocab_size=2 ** 15)
+            (en.numpy() for _, en in data), target_vocab_size=2 ** 13)
         return tokenizer_pt, tokenizer_en
