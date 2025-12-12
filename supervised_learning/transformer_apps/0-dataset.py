@@ -4,7 +4,6 @@
 This module provides the Dataset class that loads and preprocesses the
 TED Talks Portuguese-English translation dataset for transformer training.
 """
-import tensorflow.compat.v2 as tf
 import tensorflow_datasets as tfds
 
 
