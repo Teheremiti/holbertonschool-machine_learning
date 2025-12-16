@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Utilities for loading the FrozenLake environment from Gym."""
-import gym
+import gymnasium as gym
 
 
 def load_frozen_lake(desc=None, map_name=None, is_slippery=False):
