@@ -1,16 +1,11 @@
 #!/usr/bin/python3
 """Multi-reference question answering using semantic search and BERT."""
-import tensorflow_hub as hub
-from transformers import BertTokenizer
-import tensorflow as tf
 from sentence_transformers import SentenceTransformer, SimilarityFunction
 import os
 import numpy as np
 
 # Lazily initialized global models reused across calls.
 semantic_model = None
-qa_tokenizer = None
-qa_model = None
 
 # Reuse the single-reference QA implementation from ``0-qa.py``.
 question_answer = __import__("0-qa").question_answer
@@ -91,7 +86,6 @@ def question_answer(corpus_path):
     Args:
         corpus_path (str): Path to the corpus of reference documents.
     """
-
     while True:
         question = input("Q: ")
         if question.lower() in ["exit", "quit", "goodbye", "bye"]:
