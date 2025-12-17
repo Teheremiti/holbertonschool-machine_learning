@@ -51,7 +51,7 @@ def play(env, Q, max_steps=100):
 
     action_labels = {0: "Left", 1: "Down", 2: "Right", 3: "Up"}
 
-    rendered_outputs = [format_board(desc, state)]
+    rendered_outputs = ["", format_board(desc, state)]
     total_rewards = 0
 
     for step in range(max_steps):
