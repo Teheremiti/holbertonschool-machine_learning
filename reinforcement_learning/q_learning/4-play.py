@@ -22,7 +22,7 @@ def play(env, Q, max_steps=100):
         * ``total_rewards`` is the cumulative reward for the episode.
         * ``rendered_outputs`` is a list of strings showing the board
           after the initial reset and after each action, with the agent
-          position highlighted using backticks.
+          position highlighted using double quotes.
     """
     reset_result = env.reset()
     if isinstance(reset_result, tuple):
@@ -43,7 +43,7 @@ def play(env, Q, max_steps=100):
                 if isinstance(cell, bytes):
                     cell = cell.decode("utf-8")
                 if i == row and j == col:
-                    chars.append(f"`{cell}`")
+                    chars.append(f"\"{cell}\"")
                 else:
                     chars.append(cell)
             lines.append("".join(chars))
