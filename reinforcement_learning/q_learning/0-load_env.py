@@ -20,13 +20,15 @@ def load_frozen_lake(desc=None, map_name=None, is_slippery=False):
             transitions are deterministic.
 
     Returns:
-        The created FrozenLake environment instance.
+        The created FrozenLake environment instance. Rendering uses the
+        ``"ansi"`` mode so that calls to ``env.render()`` return strings.
     """
     env = gym.make(
         "FrozenLake-v1",
         desc=desc,
         map_name=map_name,
         is_slippery=is_slippery,
+        render_mode="ansi",
     )
 
     return env
