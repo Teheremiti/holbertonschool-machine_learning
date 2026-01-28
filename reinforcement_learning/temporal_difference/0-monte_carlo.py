@@ -23,14 +23,15 @@ def monte_carlo(env, V, policy, episodes=5000, max_steps=100,
     Returns:
         numpy.ndarray: Updated value estimate rounded to 4 decimal places.
     """
-    for ep in range(episodes):
-        state = env.reset()
+    for episode in range(episodes):
+        state, _ = env.reset()
         episode_data = []
 
         for step in range(max_steps):
             action = policy(state)
-            next_state, reward, done, _ = env.step(action)
+            next_state, reward, term, trunc, _ = env.step(action)
             episode_data.append((state, reward))
+            done = term or trunc
 
             if done or step > max_steps:
                 break
@@ -42,7 +43,7 @@ def monte_carlo(env, V, policy, episodes=5000, max_steps=100,
         G = 0
         for s, r in episode_data[::-1]:
             G = gamma * G + r
-            if s not in episode_data[:ep, 0]:
+            if s not in episode_data[:episode, 0]:
                 V[s] = V[s] + alpha * (G - V[s])
 
     np.set_printoptions(precision=4, suppress=True)
