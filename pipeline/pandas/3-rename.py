@@ -3,7 +3,19 @@
 
 import pandas as pd
 
-from_file = __import__("2-from_file").from_file
+
+def from_file(filename, delimiter):
+    """Load data from a delimited text file into a pandas DataFrame.
+
+    Args:
+        filename (str): Path to the input file.
+        delimiter (str): Column separator used in the file.
+
+    Returns:
+        pandas.DataFrame: DataFrame containing the loaded data.
+    """
+    return pd.read_csv(filename, delimiter=delimiter)
+
 
 df = from_file("coinbase.csv", ",")
 
