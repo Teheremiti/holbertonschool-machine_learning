@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """From Numpy"""
 
-import numpy as np
 import pandas as pd
 
 
@@ -15,13 +14,7 @@ def from_numpy(array):
 
     Returns:
         pandas.DataFrame: DataFrame built from ``array``.
-
-    Raises:
-        TypeError: If ``array`` is not a NumPy ndarray.
     """
-    if not isinstance(array, np.ndarray):
-        raise TypeError("Input should be an np.ndarray")
-
     num_cols = array.shape[1]
     columns = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")[:num_cols]
 
