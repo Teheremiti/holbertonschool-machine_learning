@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
-"""Rename and convert the timestamp column, then display selected data."""
+"""Timestamp renaming and conversion utilities."""
 
 import pandas as pd
 
 
-def from_file(filename, delimiter):
-    """Load data from a delimited text file into a pandas DataFrame.
+def rename(df):
+    """Rename a timestamp column and keep price data.
+
+    The ``Timestamp`` column is renamed to ``Datetime`` and converted from
+    seconds since the Unix epoch to pandas datetime. Only ``Datetime`` and
+    ``Close`` columns are kept.
 
     Args:
-        filename (str): Path to the input file.
-        delimiter (str): Column separator used in the file.
+        df (pandas.DataFrame): Input time series data.
 
     Returns:
-        pandas.DataFrame: DataFrame containing the loaded data.
+        pandas.DataFrame: Modified DataFrame with two columns.
     """
-    return pd.read_csv(filename, delimiter=delimiter)
-
-
-df = from_file("coinbase.csv", ",")
-
-df.rename(columns={"Timestamp": "Datetime"}, inplace=True)
-df["Datetime"] = pd.to_datetime(df["Datetime"], unit="s")
-df = df[["Datetime", "Close"]]
-
-print(df.tail())
+    df.rename(columns={"Timestamp": "Datetime"}, inplace=True)
+    df["Datetime"] = pd.to_datetime(df["Datetime"], unit="s")
+    return df[["Datetime", "Close"]]
