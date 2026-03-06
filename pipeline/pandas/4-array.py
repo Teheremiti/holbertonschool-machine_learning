@@ -13,4 +13,3 @@ def array(df):
     """
     subset = df[["High", "Close"]].tail(10)
     return subset.to_numpy()
-
