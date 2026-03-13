@@ -17,11 +17,17 @@ def fill(df):
         handled columns.
     """
     df.drop(columns=["Weighted_Price"], inplace=True)
+
+    # Forward-fill missing Close values
     df["Close"] = df["Close"].ffill()
-    df[["High", "Low", "Open"]] = df[["High", "Low", "Open"]].fillna(
-        df["Close"]
-    )
+
+    # For each price column, fill missing values with the row's Close value
+    for col in ["High", "Low", "Open"]:
+        df[col] = df[col].fillna(df["Close"])
+
+    # Volumes: replace missing values with zero
     df[["Volume_(BTC)", "Volume_(Currency)"]] = df[
         ["Volume_(BTC)", "Volume_(Currency)"]
     ].fillna(0)
+
     return df
