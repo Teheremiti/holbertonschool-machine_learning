@@ -26,9 +26,15 @@ def availableShips(passengerCount):
         except requests.exceptions.RequestException as e:
             print("Request failed: {}".format(e))
             return []
-        ships += [ship for ship in r.get("results") if ship.get("passengers") != "n/a"
-                  and ship.get("passengers") != "unknown"
-                  and int(ship.get("passengers").replace(",", "")) >= passengerCount]
+        ships += [
+            ship
+            for ship in r.get("results", [])
+            if (
+                ship.get("passengers") not in ("n/a", "unknown")
+                and int(ship.get("passengers").replace(",", "")) >=
+                passengerCount
+            )
+        ]
         url = r.get("next")
 
     return [ship.get("name") for ship in ships]
