@@ -1,7 +1,7 @@
 -- Shows by total rating
-SELECT show.title, SUM(show_rating.rate) AS rating
+SELECT shows.title, SUM(show_rating.rate) AS rating
 FROM tv_show_ratings AS show_rating
-JOIN tv_shows AS show
-ON show_rating.show_id = show.id
-GROUP BY show.title
+JOIN tv_shows AS shows
+ON show_rating.show_id = shows.id
+GROUP BY shows.title
 ORDER BY rating DESC;
