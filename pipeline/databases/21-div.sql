@@ -9,7 +9,11 @@ CREATE FUNCTION SafeDiv(
     RETURNS FLOAT
 
     BEGIN
-        RETURN CASE WHEN b = 0 THEN 0 ELSE a / b END;
+        IF b = 0 THEN
+            RETURN 0;
+        ELSE
+            RETURN a / b;
+        END IF;
     END $$
 
 DELIMITER;
