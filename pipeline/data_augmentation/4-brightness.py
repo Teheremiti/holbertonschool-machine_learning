@@ -13,4 +13,4 @@ def change_brightness(image, max_delta):
     Returns:
         A `tf.Tensor` containing the brightness-adjusted image.
     """
-    return tf.image.adjust_brightness(image, max_delta)
+    return tf.image.random_brightness(image, max_delta)
